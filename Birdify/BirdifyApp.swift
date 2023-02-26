@@ -11,7 +11,10 @@ import SwiftUI
 struct BirdifyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                MainMenuView()
+            }
+           
         }
     }
 }

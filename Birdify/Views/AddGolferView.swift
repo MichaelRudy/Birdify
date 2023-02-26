@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct AddGolferView: View {
-    @EnvironmentObject var golfModel: GolferModel
-    
+    let golfModel: GolferModel
     @State private var numberOfGolfers = 1
     @State private var golfersAdded = 0
     
     var body: some View {
         
         VStack {
+            Table(golfModel.golfers) {
+                TableColumn("Name", value: \.name)
+                TableColumn("Handicap") {hdc in
+                    Text(String(hdc.handicap))
+                }
+            }
             Stepper(value: $numberOfGolfers, in: 1...4) {
                 Text("Add \(numberOfGolfers) Golfer(s)")
                     .font(.title3)
@@ -41,7 +46,7 @@ struct AddGolferView: View {
 }
 
 struct GolferInputView: View {
-//    @EnvironmentObject var golfModel: GolferModel
+    
     let golferAdded: (String, Int) -> Void
     
     @State private var name = ""
@@ -60,12 +65,13 @@ struct GolferInputView: View {
             }
             .disabled(name.isEmpty || handicap.isEmpty)
         }
-//        .environmentObject(golfModel)
+
     }
 }
 
 struct AddGolferView_Previews: PreviewProvider {
+    static let golfModel = GolferModel()
     static var previews: some View {
-        AddGolferView()
+        AddGolferView(golfModel: golfModel)
     }
 }

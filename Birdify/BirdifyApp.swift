@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct BirdifyApp: App {
+    @StateObject private var golfModel = GolferModel()
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 MainMenuView()
+                    .environmentObject(golfModel)
             }
            
         }

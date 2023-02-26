@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    
-    @StateObject var golfModel = GolferModel()
-    
+    @EnvironmentObject var golfModel: GolferModel
     var body: some View {
         VStack{
             title
             NavigationView {
                 List {
                     Section(header: Text("Settings")) {
-                        NavigationLink(destination: AddGolferView().environmentObject(golfModel)) {
+                        NavigationLink(destination: AddGolferView(golfModel: golfModel)) {
                             HStack{
                                 Text("Add Golfers")
                                     .font(.title3)
@@ -60,5 +58,6 @@ var title: some View {
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
         MainMenuView()
+            .environmentObject(GolferModel())
     }
 }

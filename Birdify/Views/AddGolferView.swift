@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddGolferView: View {
-    let golfModel: GolferModel
+    @EnvironmentObject var golfModel: GolfGameViewModel
     @State private var name = ""
     @State private var handicap = ""
     
@@ -28,21 +28,31 @@ struct AddGolferView: View {
             }
             .listStyle(InsetGroupedListStyle())
             VStack(alignment: .center) {
+
                 TextField("Name", text: $name)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
+                    .onTapGesture {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
                 
                 TextField("Handicap", text: $handicap)
                     .keyboardType(.numberPad)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
                     .keyboardType(.numberPad)
+                    .onTapGesture {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
                 
                 Button("Add") {
                     if let handicapValue = Int(handicap) {
                         golfModel.addGolfer(name: name, handicap: handicapValue)
                         name = ""
                         handicap = ""
+                    }
+                    else {
+                        golfModel.addGolfer(name: name, handicap: 0)
                     }
                 }
                 .disabled(name.isEmpty || handicap.isEmpty)
@@ -70,10 +80,9 @@ var header: some View {
 }
 
 struct AddGolferView_Previews: PreviewProvider {
-    static let golfModel = GolferModel()
     static var previews: some View {
         NavigationStack {
-            AddGolferView(golfModel: golfModel)
+            AddGolferView().environmentObject(GolfGameViewModel())
         }
         
     }

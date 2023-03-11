@@ -9,34 +9,32 @@ import SwiftUI
 
 struct AddGolferView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
-    @State private var name = ""
-    @State private var handicap = ""
     
     var body: some View {
-        
         VStack {
+            addGolferTitle    
             List {
                 Section(header: header) {
                     ForEach(golfModel.golfers) { golfer in
                         HStack {
-                            Text(golfer.name)
+                            Text(golfer.golferName)
                             Spacer()
-                            Text(String(golfer.handicap))
+                            Text(String(golfer.golferHandicap))
                         }
                     }
                 }
             }
             .listStyle(InsetGroupedListStyle())
+            
             VStack(alignment: .center) {
-
-                TextField("Name", text: $name)
+                TextField("Name", text: $golfModel.name)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
                     .onTapGesture {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
                 
-                TextField("Handicap", text: $handicap)
+                TextField("Handicap", text: $golfModel.handicap)
                     .keyboardType(.numberPad)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
@@ -46,25 +44,15 @@ struct AddGolferView: View {
                             }
                 
                 Button("Add") {
-                    if let handicapValue = Int(handicap) {
-                        golfModel.addGolfer(name: name, handicap: handicapValue)
-                        name = ""
-                        handicap = ""
-                    }
-                    else {
-                        golfModel.addGolfer(name: name, handicap: 0)
-                    }
+                    golfModel.validateGolfer()
                 }
-                .disabled(name.isEmpty || handicap.isEmpty)
+                .disabled(golfModel.name.isEmpty || golfModel.handicap.isEmpty)
+                .onTapGesture {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
             }
             .padding()
-            
-//            if golfModel.golfers.isEmpty {
-//                Button("Done") {
-//                    // Dismiss the view
-//                }
-//            }
-    
+                
             Spacer()
         }
         .padding()
@@ -76,6 +64,18 @@ var header: some View {
         Text("Golfer")
         Spacer()
         Text("Handicap")
+    }
+}
+
+var addGolferTitle: some View {
+    HStack {
+        Text("Add Golfers")
+            .font(.title)
+            .fontWeight(.black)
+            .italic()
+            .foregroundColor(.blue)
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        Spacer()
     }
 }
 

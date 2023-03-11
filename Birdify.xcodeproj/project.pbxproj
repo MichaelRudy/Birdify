@@ -15,6 +15,7 @@
 		D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDE729A9CAF9005B99A1 /* AddGolferView.swift */; };
 		D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF029ADA32D005B99A1 /* GolfGameViewModel.swift */; };
 		D0C7EDF329AF0AF9005B99A1 /* Golfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */; };
+		D0C7EDF729B1A753005B99A1 /* TrackScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D0C7EDEB29A9D13D005B99A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0C7EDF029ADA32D005B99A1 /* GolfGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfGameViewModel.swift; sourceTree = "<group>"; };
 		D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Golfer.swift; sourceTree = "<group>"; };
+		D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackScoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				D0C7EDDE29A8577B005B99A1 /* MainMenuView.swift */,
+				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
 				D0C7EDE729A9CAF9005B99A1 /* AddGolferView.swift */,
 			);
 			path = Views;
@@ -175,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C7EDF729B1A753005B99A1 /* TrackScoreView.swift in Sources */,
 				D0C7EDDF29A8577B005B99A1 /* MainMenuView.swift in Sources */,
 				D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */,
 				D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */,

@@ -7,10 +7,31 @@
 
 import Foundation
 
-struct Golfer: Identifiable {
+struct Golfer: Identifiable, Hashable {    
     var id = UUID()
-    var name: String
-    var handicap: Int
-    let score: [Int] // consider making this a hash map ?
+    private let name: String
+    private let handicap: Int
+    private var score = Array(repeating: 0, count: 18)
+   
+    init(name: String, handicap: Int) {
+        self.name = name
+        self.handicap = handicap
+    }
+    
+    var golferName: String {
+        name
+    }
+    
+    var golferHandicap: Int {
+        handicap
+    }
+
+    mutating func setScore(holeIndex: Int, score: Int) {
+        self.score[holeIndex] = score
+    }
+    
+    func getScore(holeIndex: Int) -> Int {
+        self.score[holeIndex]
+    }
     
 }

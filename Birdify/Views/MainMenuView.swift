@@ -3,7 +3,7 @@
 //  Birdify
 //
 //  Created by Michael Rudy on 2/23/23.
-//
+// https://levelup.gitconnected.com/state-vs-stateobject-vs-observedobject-vs-environmentobject-in-swiftui-81e2913d63f9
 
 import SwiftUI
 
@@ -11,9 +11,8 @@ struct MainMenuView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     var body: some View {
         VStack{
-            title
             TabView {
-                ContentView()
+                TrackScoreView()
                     .tabItem {
                         Label("Track Round", systemImage: "menucard")
                     }
@@ -22,32 +21,6 @@ struct MainMenuView: View {
                     .tabItem {
                         Label("Edit Golfers", systemImage: "figure.golf")
                     }
-                
-                //            NavigationView {
-                //                List {
-                //                    Section(header: Text("Settings")) {
-                //                        NavigationLink(destination: AddGolferView().environmentObject(golfModel)) {
-                //                            HStack{
-                //                                Text("Add Golfers")
-                //                                    .font(.title3)
-                //                                    .fontWeight(.bold)
-                //                                Spacer()
-                //                                Text("🏌️")
-                //                            }
-                //                        }
-                //
-                //                        NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
-                //                            HStack{
-                //                                Text("Customize Round")
-                //                                    .font(.title3)
-                //                                    .fontWeight(.bold)
-                //                                Spacer()
-                //                                Text("⛳️")
-                //                            }
-                //                        }
-                //                    }
-                //                    NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) { /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Navigate")/*@END_MENU_TOKEN@*/ }
-                //                }
             }
         }
     }
@@ -65,10 +38,11 @@ var title: some View {
     }
 }
 
-
 struct MainMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MainMenuView()
-            .environmentObject(GolfGameViewModel())
+        NavigationStack {
+            MainMenuView()
+                .environmentObject(GolfGameViewModel())
+        }
     }
 }

@@ -52,7 +52,7 @@ class GolfGameViewModel: ObservableObject {
     }
     
     func incrementHoleCount() {
-        if holeNumber < 3 {
+        if holeNumber < self.course?.holeCount ?? 18 {
             holeNumber += 1
         }
     }

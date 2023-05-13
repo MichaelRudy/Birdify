@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Course: Identifiable {
+struct Course: Identifiable, Hashable {
     let id = UUID()
     private let name: String
     private let par: Int
-    private let holeCount: Int
+    public let holeCount: Int
     
     init(name: String, par: Int, holeCount: Int) {
         self.name = name

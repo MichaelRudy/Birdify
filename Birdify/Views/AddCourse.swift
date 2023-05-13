@@ -37,9 +37,6 @@ struct AddCourse: View {
     }
 }
             
-                        
-                           
-
 var addCourseTitle: some View {
     HStack {
         Text("Add Course Information")

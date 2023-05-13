@@ -14,6 +14,8 @@ class GolfGameViewModel: ObservableObject {
     @Published var name = ""
     @Published var handicap = ""
     @Published var holeNumber = 1
+    @Published var course: Course?
+    @Published var isInit: Bool = false
     
     // add golfers from the addGolferView
     private func addGolfer(name:String, handicap: Int) -> Void {
@@ -28,6 +30,10 @@ class GolfGameViewModel: ObservableObject {
         name = ""
         handicap = ""
     }
+    
+//    func validateCourse(name: String, par: Int) {
+//        
+//    }
     
     func addGolferScore(golferIndex: Int, score: String) {
         if let scoreInt = Int(score) {

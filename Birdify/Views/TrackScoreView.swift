@@ -18,47 +18,60 @@ struct TrackScoreView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            Divider()
             VStack {
-                if golfModel.golfers.isEmpty {
+                if golfModel.golfers.isEmpty || golfModel.course == nil {
                     NavigationLink(destination: AddGolferView().environmentObject(golfModel), label: {
                         Text("Add Golfers")
                             .font(.title2)
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
-                            .background(Color(UIColor.systemGreen))
+                            .cornerRadius(8)
+                    }).isDetailLink(false)
+                    
+                    NavigationLink(destination: AddCourse().environmentObject(golfModel), label: {
+                        Text("Add Course Information")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                             .cornerRadius(8)
                     }).isDetailLink(false)
                 }
-                
+            
                 else {
-                    let golfer = golfModel.golfers[currentGolferIndex]
-                    Text(golfer.golferName)
-                        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                    TextField("Score", text: $score)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.center)
-                        .onTapGesture {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-    
-                    Button("Add Score") {
-                        golfModel.addGolferScore(golferIndex: currentGolferIndex, score: score)
-                        if currentGolferIndex < golfModel.getMaxGolferIndex() {
-                            score = ""
-                            currentGolferIndex += 1
-                        }
-                        else {4
-                            golfModel.incrementHoleCount()
-                            score = ""
-                            currentGolferIndex = 0
-                        }
-                    }
-                    .disabled(score.isEmpty)
-                    .onTapGesture {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.blue.opacity(0.2))
+                        .overlay(
+                            VStack {
+                                let golfer = golfModel.golfers[currentGolferIndex]
+                                Text(golfer.golferName)
+                                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                                TextField("Score", text: $score)
+                                    .keyboardType(.numberPad)
+                                    .multilineTextAlignment(.center)
+                                    .onTapGesture {
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                    }
+                
+                                Button("Add Score") {
+                                    golfModel.addGolferScore(golferIndex: currentGolferIndex, score: score)
+                                    if currentGolferIndex < golfModel.getMaxGolferIndex() {
+                                        score = ""
+                                        currentGolferIndex += 1
+                                    }
+                                    else {
+                                        golfModel.incrementHoleCount()
+                                        score = ""
+                                        currentGolferIndex = 0
+                                    }
+                                }
+                                .disabled(score.isEmpty)
+                                .onTapGesture {
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                }
+                            }
+                        )
                 }
             }
         }

@@ -13,6 +13,7 @@ struct TrackScoreView: View {
     @State var score = ""
     
     var body: some View {
+        
         VStack {
             Text("Hole: \(String(golfModel.holeNumber))")
                 .font(.title)

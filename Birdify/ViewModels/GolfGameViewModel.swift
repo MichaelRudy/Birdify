@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class GolfGameViewModel: ObservableObject {
     
@@ -44,12 +45,12 @@ class GolfGameViewModel: ObservableObject {
         return maxIndex
     }
     
-    func getGolferScore(golferIndex: Int) -> String {
-        String(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
+    func getGolferScore(golferIndex: Int, holeN: Int) -> String {
+        String(golfers[golferIndex].getScore(holeIndex: holeN-1))
     }
     
     func incrementHoleCount() {
-        if holeNumber < self.course?.holeCount ?? 18 {
+        if holeNumber <= self.course?.holeCount ?? 18 {
             holeNumber += 1
         }
     }

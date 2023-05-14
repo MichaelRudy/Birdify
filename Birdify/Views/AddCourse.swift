@@ -27,11 +27,8 @@ struct AddCourse: View {
                 .padding()
             
             Button("Start Golf Round") {
-                if let parInt = Int(coursePar), let holeInt = Int(holeCount) {
-                    golfModel.course = Course(name: courseName, par: parInt, holeCount: holeInt)
-                    golfModel.isInit = true
-                    self.presentationMode.wrappedValue.dismiss()
-                }
+                golfModel.validateCourse(name: self.courseName, par: self.coursePar, holeCount: self.holeCount)
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }

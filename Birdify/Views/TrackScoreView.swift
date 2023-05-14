@@ -56,7 +56,7 @@ struct TrackScoreView: View {
                                     }
                 
                                 Button("Add Score") {
-                                    golfModel.addGolferScore(golferIndex: currentGolferIndex, score: score)
+                                    golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score)
                                     if currentGolferIndex < golfModel.getMaxGolferIndex() {
                                         score = ""
                                         currentGolferIndex += 1
@@ -82,12 +82,9 @@ struct TrackScoreView: View {
 struct TrackScoreView_Previews: PreviewProvider {
     static var previews: some View {
         let golfModel = GolfGameViewModel()
-        golfModel.name = "Michael"
-        golfModel.handicap = "10"
-        golfModel.validateGolfer()
-        golfModel.name = "Candace"
-        golfModel.handicap = "2"
-        golfModel.validateGolfer()
+        golfModel.validateGolfer(name: "Michael", handicap: "10")
+        golfModel.validateGolfer(name: "Tyler", handicap: "15")
+        golfModel.validateCourse(name: "Twin Lakes", par: "72", holeCount: "18")
         
         return NavigationStack {
             TrackScoreView().environmentObject(golfModel)

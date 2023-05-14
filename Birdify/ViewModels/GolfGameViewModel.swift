@@ -10,9 +10,6 @@ import Foundation
 class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
-    @Published var scores = [Golfer: [Int]]()
-    @Published var name = ""
-    @Published var handicap = ""
     @Published var holeNumber = 1
     @Published var course: Course?
     @Published var isInit: Bool = false
@@ -21,20 +18,20 @@ class GolfGameViewModel: ObservableObject {
     private func addGolfer(name:String, handicap: Int) -> Void {
         let newGolfer = Golfer(name:name, handicap: handicap)
         self.golfers.append(newGolfer)
-        self.scores[newGolfer] = Array(repeating: 0, count: 18)
     }
     
-    func validateGolfer() {
+    func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
         addGolfer(name: name, handicap: handicapValue)
-        name = ""
-        handicap = ""
     }
     
-//    func validateCourse(name: String, par: Int) {
-//        
-//    }
-    
+    func validateCourse(name: String, par: String, holeCount: String) {
+        if let parInt = Int(par), let holeInt = Int(holeCount) {
+            self.course = Course(name: name, par: parInt, holeCount: holeInt)
+            self.isInit = true
+        }
+    }
+        
     func addGolferScore(golferIndex: Int, score: String) {
         if let scoreInt = Int(score) {
             golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)

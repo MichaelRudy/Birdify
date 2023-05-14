@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddGolferView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
+    @State var name = ""
+    @State var handicap = ""
     
     var body: some View {
         VStack {
@@ -27,14 +29,14 @@ struct AddGolferView: View {
             .listStyle(InsetGroupedListStyle())
             
             VStack(alignment: .center) {
-                TextField("Name", text: $golfModel.name)
+                TextField("Name", text: self.$name)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
                     .onTapGesture {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
                 
-                TextField("Handicap", text: $golfModel.handicap)
+                TextField("Handicap", text: self.$handicap)
                     .keyboardType(.numberPad)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.center)
@@ -44,9 +46,11 @@ struct AddGolferView: View {
                             }
                 
                 Button("Add") {
-                    golfModel.validateGolfer()
+                    golfModel.validateGolfer(name: self.name, handicap: self.handicap)
+                    self.name = ""
+                    self.handicap = ""
                 }
-                .disabled(golfModel.name.isEmpty || golfModel.handicap.isEmpty)
+                .disabled(self.name.isEmpty || self.handicap.isEmpty)
                 .onTapGesture {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }

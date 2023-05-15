@@ -1,7 +1,7 @@
 # Birdify iOS Application Coded in SwiftUI
 
 ## Overview
-This is my attempt at created an iOS application using SwiftUI
+This is my attempt at creating an iOS application using SwiftUI
 
 ## Project Goals
 Create a gamified scorecard app that is provides meaningful analytics. However, I want to keep this simple. Most scorecard apps are copies of physical scorecards on your screen. My goal is to create something cleaner. 

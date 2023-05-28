@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D62A23E75B00E6B86C /* Hole.swift */; };
 		D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */; };
 		D0BE3B84295CD7F9006DEBE0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B83295CD7F9006DEBE0 /* ContentView.swift */; };
 		D0BE3B86295CD7FA006DEBE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BE3B85295CD7FA006DEBE0 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D080B7D62A23E75B00E6B86C /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		D0BE3B7E295CD7F9006DEBE0 /* Birdify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birdify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdifyApp.swift; sourceTree = "<group>"; };
 		D0BE3B83295CD7F9006DEBE0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */,
+				D080B7D62A23E75B00E6B86C /* Hole.swift */,
 				D0C49E9229DA0FAE00A3719B /* Course.swift */,
 			);
 			path = Models;
@@ -191,6 +194,7 @@
 				D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */,
 				D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */,
 				D0C7EDF329AF0AF9005B99A1 /* Golfer.swift in Sources */,
+				D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */,
 				D0BE3B84295CD7F9006DEBE0 /* ContentView.swift in Sources */,
 				D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */,
 			);

@@ -39,7 +39,6 @@ struct Golfer: Identifiable, Hashable {
             plus_minus += (strokes - par)
         }
         
-        
         return plus_minus
     }
     

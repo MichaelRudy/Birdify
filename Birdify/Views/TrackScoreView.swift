@@ -35,22 +35,31 @@ struct TrackScoreView: View {
                             .cornerRadius(8)
                     }).isDetailLink(false)
                 }
+                else if golfModel.holeNumber > golfModel.course?.holeCount ?? 18 {
+                    ResultsView()
+                }
                 else {
                     VStack {
                         let golfer = golfModel.golfers[currentGolferIndex]
-                        HStack {
-                            Text(golfer.golferName)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                            Text(golfModel.getGolferScore(golferIndex: currentGolferIndex))
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                            
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray)
+                            VStack {
+                                VStack {
+                                    Text(golfer.golferName)
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.center)
+                                        .padding()
+                                    Text(golfModel.getGolferScore(golferIndex: currentGolferIndex))
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.center)
+                                        .padding()
+                                }
+                            }
                         }
+                        .padding()
                         List {
                             Section(header: scorecardHeader) {
                                 ForEach(1..<golfModel.holeNumber, id: \.self) { hole in
@@ -61,25 +70,28 @@ struct TrackScoreView: View {
                                         Spacer()
                                         Text(String(golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: hole)))
                                     }
+                                    .padding(.vertical, 8)
+                                    .frame(maxWidth: .infinity)
                                 }
                             }
+                            .headerProminence(.increased)
                         }
-                        .onTapGesture {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-                        .listStyle(InsetGroupedListStyle())
+                        .listStyle(.insetGrouped)
+                        
                         TextField("Score", text: $score)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.center)
                             .onTapGesture {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
+                        
                         TextField("Par", text: $par)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.center)
                             .onTapGesture {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
+                        
                         Button("Add Score") {
                             golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score, holePar: self.par)
                             if currentGolferIndex < golfModel.getMaxGolferIndex() {
@@ -108,10 +120,19 @@ struct TrackScoreView: View {
 var scorecardHeader: some View {
     HStack {
         Text("Hole")
+            .font(.headline)
+            .fontWeight(.bold)
+            .foregroundColor(Color.blue)
         Spacer()
         Text("Par")
+            .font(.headline)
+            .fontWeight(.bold)
+            .foregroundColor(Color.blue)
         Spacer()
         Text("Strokes")
+            .font(.headline)
+            .fontWeight(.bold)
+            .foregroundColor(Color.blue)
     }
 }
 
@@ -121,7 +142,7 @@ struct TrackScoreView_Previews: PreviewProvider {
         let golfModel = GolfGameViewModel()
         golfModel.validateGolfer(name: "Michael", handicap: "10")
 //        golfModel.validateGolfer(name: "Tyler", handicap: "10")
-        golfModel.validateCourse(name: "Twin Lakes", par: "72", holeCount: "18")
+        golfModel.validateCourse(name: "Twin Lakes", par: "72", holeCount: "2")
         
         return NavigationStack {
             TrackScoreView().environmentObject(golfModel)

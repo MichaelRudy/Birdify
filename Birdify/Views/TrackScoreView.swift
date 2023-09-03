@@ -57,8 +57,6 @@ struct TrackScoreView: View {
                                         .fontWeight(.bold)
                                         .multilineTextAlignment(.center)
                                         .padding()
-                                    
-                                    
                                 }
                             }
                         }
@@ -72,8 +70,11 @@ struct TrackScoreView: View {
                                             .frame(maxWidth: .infinity) // Expand to fill available space
                                         Text(String(golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: hole)))
                                             .frame(maxWidth: .infinity) // Expand to fill available space
-                                        Text(String(golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: hole)))
-                                            .frame(maxWidth: .infinity) // Expand to fill available space
+//                                        Text(String(golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: hole)))
+//                                            .frame(maxWidth: .infinity) // Expand to fill available space
+                                        
+                                        golfModel.ScoreSynbol(par: golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: hole), strokes:golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: hole))
+
                                     }
                                     .padding(.vertical, 8)
                                 }
@@ -169,7 +170,7 @@ struct TrackScoreView_Previews: PreviewProvider {
         golfModel.validateGolfer(name: "Michael", handicap: "10")
         golfModel.validateGolfer(name: "Candace", handicap: "10")
 //        golfModel.validateGolfer(name: "Tyler", handicap: "10")
-        golfModel.validateCourse(name: "Twin Lakes", par: "72", holeCount: "2")
+        golfModel.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
         
         return NavigationStack {
             TrackScoreView().environmentObject(golfModel)

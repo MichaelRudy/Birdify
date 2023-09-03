@@ -32,10 +32,10 @@ class GolfGameViewModel: ObservableObject {
             self.isInit = true
         }
     }
-        
+    
     func addGolferScore(golferIndex: Int, score: Int, holePar: Int) {
         
-//            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
+        //            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
         golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar)
         print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
         
@@ -60,12 +60,12 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
-    func getGolferStrokes(golferIndex: Int, holeN: Int) -> String {
-        String(golfers[golferIndex].getStrokes(holeIndex: holeN-1))
+    func getGolferStrokes(golferIndex: Int, holeN: Int) -> Int {
+        golfers[golferIndex].getStrokes(holeIndex: holeN-1)
     }
     
-    func getHolePar(golferIndex: Int, holeN: Int) -> String {
-        String(golfers[golferIndex].getPar(holeIndex: holeN-1))
+    func getHolePar(golferIndex: Int, holeN: Int) -> Int {
+        golfers[golferIndex].getPar(holeIndex: holeN-1)
     }
     
     func incrementHoleCount() {
@@ -73,5 +73,55 @@ class GolfGameViewModel: ObservableObject {
             holeNumber += 1
         }
     }
+    
+    func ScoreSynbol(par: Int, strokes: Int) -> some View {
+        ZStack {
+            let plus_minus = strokes - par
+            if plus_minus == 0 {
+                Text("E")
+                    .font(.title)
+                    .foregroundColor(.blue)
+                    .frame(maxWidth: .infinity)
+            }
+            
+            else if plus_minus == -1 {
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Text(String(strokes))
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .frame(maxWidth: .infinity))
+            }
+            
+            else if plus_minus == 1 {
+                Rectangle()
+                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Text(String(strokes))
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .frame(maxWidth: .infinity)
+                    )
+            }
+            
+            else if plus_minus == 2 {
+                Rectangle()
+                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+                    .frame(width: 40, height: 40)
+                Rectangle()
+                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+                    .frame(width: 30, height: 30)
+                    .overlay(
+                        Text(String(strokes))
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .frame(maxWidth: .infinity)
+                    )
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
 }
-

@@ -33,12 +33,12 @@ class GolfGameViewModel: ObservableObject {
         }
     }
         
-    func addGolferScore(golferIndex: Int, score: String, holePar: String) {
-        if let scoreInt = Int(score), let holeInt = Int(holePar) {
+    func addGolferScore(golferIndex: Int, score: Int, holePar: Int) {
+        
 //            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
-            golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: scoreInt, holePar: holeInt)
-            print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
-        }
+        golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar)
+        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
+        
     }
     
     func getMaxGolferIndex() -> Int {

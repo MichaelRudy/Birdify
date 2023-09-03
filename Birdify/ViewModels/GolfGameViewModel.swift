@@ -33,11 +33,12 @@ class GolfGameViewModel: ObservableObject {
         }
     }
         
-    func addGolferScore(golferIndex: Int, score: String) {
-        if let scoreInt = Int(score) {
-            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
-            print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
-        }
+    func addGolferScore(golferIndex: Int, score: Int, holePar: Int) {
+        
+//            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
+        golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar)
+        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
+        
     }
     
     func getMaxGolferIndex() -> Int {
@@ -45,8 +46,26 @@ class GolfGameViewModel: ObservableObject {
         return maxIndex
     }
     
-    func getGolferScore(golferIndex: Int, holeN: Int) -> String {
-        String(golfers[golferIndex].getScore(holeIndex: holeN-1))
+    func getGolferScore(golferIndex: Int) -> String {
+        let score = golfers[golferIndex].getScore(holeIndex: self.holeNumber-1)
+        
+        if score == 0 {
+            return "E"
+        }
+        else if score > 0 {
+            return "+"+String(score)
+        }
+        else {
+            return String(score)
+        }
+    }
+    
+    func getGolferStrokes(golferIndex: Int, holeN: Int) -> String {
+        String(golfers[golferIndex].getStrokes(holeIndex: holeN-1))
+    }
+    
+    func getHolePar(golferIndex: Int, holeN: Int) -> String {
+        String(golfers[golferIndex].getPar(holeIndex: holeN-1))
     }
     
     func incrementHoleCount() {

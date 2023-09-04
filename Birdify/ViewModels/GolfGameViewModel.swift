@@ -78,7 +78,7 @@ class GolfGameViewModel: ObservableObject {
         ZStack {
             let plus_minus = strokes - par
             if plus_minus == 0 {
-                Text("E")
+                Text(String(strokes))
                     .font(.title)
                     .foregroundColor(.blue)
                     .frame(maxWidth: .infinity)
@@ -88,6 +88,20 @@ class GolfGameViewModel: ObservableObject {
                 Circle()
                     .stroke(Color.blue, lineWidth: 2)
                     .frame(width: 40, height: 40)
+                    .overlay(
+                        Text(String(strokes))
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .frame(maxWidth: .infinity))
+            }
+            
+            else if plus_minus < -1 {
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 30, height: 30)
                     .overlay(
                         Text(String(strokes))
                             .font(.title)
@@ -107,7 +121,7 @@ class GolfGameViewModel: ObservableObject {
                     )
             }
             
-            else if plus_minus == 2 {
+            else if plus_minus > 1 {
                 Rectangle()
                     .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
                     .frame(width: 40, height: 40)

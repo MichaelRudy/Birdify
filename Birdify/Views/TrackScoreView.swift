@@ -83,7 +83,6 @@ struct TrackScoreView: View {
                         }
                         .listStyle(.insetGrouped)
                         
-                        
                         VStack(alignment: .center) {
                             Text("Score")
                                 .multilineTextAlignment(.center)
@@ -118,20 +117,31 @@ struct TrackScoreView: View {
                         }
                         .padding(.all)
                                 
-                        Button("Add Score") {
+                        Button(action: {
                             golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score, holePar: self.par)
                             if currentGolferIndex < golfModel.getMaxGolferIndex() {
                                 score = 3
                                 currentGolferIndex += 1
-                            }
-                            else {
+                            } else {
                                 golfModel.incrementHoleCount()
                                 score = 3
                                 currentGolferIndex = 0
                             }
+                        }) {
+                            VStack {
+                                Text("Submit")
+                                    .font(.footnote)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.green)
+                                Image(systemName: "checkmark") //
+                                    .resizable()
+                                    .frame(width: 30, height: 30) // Adjust the size of the image as needed
+                                    .foregroundColor(Color.green)
+                            }
                         }
                         .onTapGesture {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        
                         }
                         .padding(.all)
                     }

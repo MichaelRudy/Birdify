@@ -33,10 +33,10 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
-    func addGolferScore(golferIndex: Int, score: Int, holePar: Int) {
+    func addGolferScore(golferIndex: Int, score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
         
         //            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
-        golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar)
+        golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
         print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
         
     }
@@ -57,6 +57,39 @@ class GolfGameViewModel: ObservableObject {
         }
         else {
             return String(score)
+        }
+    }
+    
+    func getGolferTeeShot(golferIndex: Int, holeN: Int) -> some View {
+        let teeShot = golfers[golferIndex].getTeeShot(holeIndex: holeN-1)
+        switch teeShot {
+        case .center:
+            return ZStack {
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                Image(systemName: "arrow.up")
+                    .font(.title)
+                    .foregroundColor(.blue)
+            }
+        case .leftRough:
+            return ZStack {
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                Image(systemName: "arrow.up.left")
+                    .font(.title)
+                    .foregroundColor(.blue)
+            }
+        case .rightRough:
+            return ZStack {
+                Circle()
+                    .stroke(Color.blue, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                Image(systemName: "arrow.up.right")
+                    .font(.title)
+                    .foregroundColor(.blue)
+            }
         }
     }
     

@@ -13,4 +13,5 @@ Create a gamified scorecard app that is provides meaningful analytics. However, 
 <img src="/images/addGolfer.png">
 
 ## Scorecard View
-<img src="/images/scoreCard.png">
+<img src="/images.scoreCard.png">
+

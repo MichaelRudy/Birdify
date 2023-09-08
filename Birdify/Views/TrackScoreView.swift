@@ -16,6 +16,7 @@ struct TrackScoreView: View {
     @State private var isStrokeSheetPresented = false
     @State private var isTeeShotSheetPresented = false
     @State private var isParSheetPresented = false
+    @State private var isEditButtonVisible = true
     
     var body: some View {
         VStack {
@@ -73,151 +74,143 @@ struct TrackScoreView: View {
                         }
                         .listStyle(.insetGrouped)
                         
-                        VStack {
-                            HStack {
-                                Text("Hole Par: ")
-                                    .multilineTextAlignment(.center)
-                                    .font(.title)
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(Color.blue)
-                                    .padding(.leading)
-                                Spacer().frame(width: 8) // Add a spacer with a custom width to control spacing
-                                Button(action: {
-                                    // Set isSheetPresented to true when the button is tapped
-                                    isParSheetPresented = true
-                                }) {
-                                    Image(systemName: "pencil")
-                                        .font(.system(size: 24)) // Adjust the size as needed
-                                        .foregroundColor(.blue)
-                                        .padding(.trailing) // Adjust the trailing padding as needed
-                                }
-                            }
-                            .sheet(isPresented: $isParSheetPresented) {
-                                // Present StrokeSheetView as a sheet when isSheetPresented is true
-                                ParSheetView(currentGolferIndex: $currentGolferIndex, score: $score, par: $par, teeShotLocation: $teeShotLocation)
-                            }
-                            .padding()
-                            
-                            HStack {
-                                Text("Strokes:")
-                                    .multilineTextAlignment(.center)
-                                    .font(.title)
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(Color.blue)
-                                    .padding(.leading) // Adjust the leading padding as needed
-                                Spacer().frame(width: 8) // Add a spacer with a custom width to control spacing
-                                Button(action: {
-                                    // Set isSheetPresented to true when the button is tapped
-                                    isStrokeSheetPresented = true
-                                }) {
-                                    Image(systemName: "pencil") // Use the pencil icon for edit
-                                        .font(.system(size: 24)) // Adjust the size as needed
-                                        .foregroundColor(.blue)
-                                        .padding(.trailing) // Adjust the trailing padding as needed
-                                }
-                            }
-                            .sheet(isPresented: $isStrokeSheetPresented) {
-                                // Present StrokeSheetView as a sheet when isSheetPresented is true
-                                StrokeSheetView(currentGolferIndex: $currentGolferIndex, score: $score, par: $par, teeShotLocation: $teeShotLocation)
-                            }
-                            .padding()
-                            
-                            HStack {
-                                Text("Tee Shot Location: ")
-                                    .multilineTextAlignment(.center)
-                                    .font(.title)
-                                    .fontWeight(.heavy)
-                                    .foregroundColor(Color.blue)
-                                    .padding(.leading)
-                                Spacer().frame(width: 8) // Add a spacer with a custom width to control spacing
-                                Button(action: {
-                                    // Set isSheetPresented to true when the button is tapped
-                                    isTeeShotSheetPresented = true
-                                }) {
-                                    Image(systemName: "arrow.up.forward.app.fill")
-                                        .font(.system(size: 24)) // Adjust the size as needed
-                                        .foregroundColor(.blue)
-                                        .padding(.trailing) // Adjust the trailing padding as needed
-                                }
-                            }
-                            .sheet(isPresented: $isTeeShotSheetPresented) {
-                                // Present StrokeSheetView as a sheet when isSheetPresented is true
-                                TeeshotSheetview(currentGolferIndex: $currentGolferIndex, score: $score, par: $par, teeShotLocation: $teeShotLocation)
-                            }
-                            .padding()
-                        }
-                        .padding()
                         
-                        //
-                        //                        HStack {
-                        //                            GeometryReader { geometry in
-                        //                                VStack(alignment: .center) {
-                        //                                    Text("Strokes")
-                        //                                        .multilineTextAlignment(.cente
-                        //                                        .font(.title)
-                        //                                        .fontWeight(.heavy)
-                        //                                        .foregroundColor(Color.blue)
-                        //                                    Stepper(value: $score, in: 1...15, step: 1) {
-                        //                                        Text("\(score)")
-                        //                                            .multilineTextAlignment(.center)
-                        //                                            .font(.title)
-                        //                                            .fontWeight(.heavy)
-                        //                                            .foregroundColor(Color.blue)
-                        //                                    }
-                        //                                    .padding(.horizontal, geometry.size.width * 0.18) // Adjust the multiplier as needed
-                        //                                }
-                        //                                .padding(.vertical, 50) // Adjust the vertical padding as needed
-                        //                            }
-                        //
-                        //                            GeometryReader { geometry in
-                        //                                VStack(alignment: .center) {
-                        //                                    Text("Par")
-                        //                                        .multilineTextAlignment(.center)
-                        //                                        .font(.title)
-                        //                                        .fontWeight(.heavy)
-                        //                                        .foregroundColor(Color.blue)
-                        //                                    Stepper(value: $par, in: 3...5, step: 1) {
-                        //                                        Text("\(par)")
-                        //                                            .multilineTextAlignment(.center)
-                        //                                            .font(.title)
-                        //                                            .fontWeight(.heavy)
-                        //                                            .foregroundColor(Color.blue)
-                        //                                    }
-                        //                                    .padding(.horizontal, geometry.size.width * 0.18) // Adjust the multiplier as needed
-                        //                                }
-                        //                                .padding(.vertical, 50) // Adjust the vertical padding as needed
-                        //                            }
-                        //                        }
-                        //
-                        
-                        Button(action: {
-                            golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.green)
+                                .padding()
                             
-                            if currentGolferIndex < golfModel.getMaxGolferIndex() {
-                                score = 3
-                                teeShotLocation = .center
-                                currentGolferIndex += 1
-                            } else {
-                                golfModel.incrementHoleCount()
-                                score = 3
-                                teeShotLocation = .center
-                                currentGolferIndex = 0
+                            HStack {
+                                // Left side with navigation view
+                                NavigationView {
+                                    VStack {
+                                        Spacer()
+                                        
+                                        Group {
+                                            Button(action: {
+                                                isParSheetPresented = true
+                                                //                                                isEditButtonVisible = false
+                                            }) {
+                                                HStack {
+                                                    Text("Hole Par")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    if isEditButtonVisible {
+                                                        Image(systemName: "square.and.pencil")
+                                                            .foregroundColor(.blue)
+                                                    }
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isParSheetPresented) {
+                                                ParSheetView(
+                                                    currentGolferIndex: $currentGolferIndex,
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
+                                            
+                                            Divider()
+                                            
+                                            Button(action: {
+                                                isStrokeSheetPresented = true
+                                                //                                                isEditButtonVisible = false
+                                            }) {
+                                                HStack {
+                                                    Text("Strokes")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    if isEditButtonVisible {
+                                                        Image(systemName: "square.and.pencil")
+                                                            .foregroundColor(.blue)
+                                                    }
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isStrokeSheetPresented) {
+                                                StrokeSheetView(
+                                                    currentGolferIndex: $currentGolferIndex,
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
+                                            
+                                            Divider()
+                                            Button(action: {
+                                                isTeeShotSheetPresented = true
+                                                //                                                isEditButtonVisible = false
+                                            }) {
+                                                HStack {
+                                                    VStack {
+                                                        Text("Tee Shot")
+                                                            .font(.title3)
+                                                            .fontWeight(.heavy)
+                                                            .foregroundColor(Color.blue)
+                                                        Text("Location")
+                                                            .font(.title3)
+                                                            .fontWeight(.heavy)
+                                                            .foregroundColor(Color.blue)
+                                                        
+                                                    }
+                                                    
+                                                    Spacer()
+                                                    if isEditButtonVisible {
+                                                        Image(systemName: "square.and.pencil")
+                                                            .foregroundColor(.blue)
+                                                    }
+                                                }
+                                                .padding() 
+                                            }
+                                            .sheet(isPresented: $isTeeShotSheetPresented) {
+                                                TeeshotSheetview(
+                                                    currentGolferIndex: $currentGolferIndex,
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
+                                        }
+                                        
+                                        Spacer()
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                                .background(Color.white)
+                                
+                                Spacer()
+                                
+                                // Right side with submit button
+                                Button(action: {
+                                    golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
+                                    
+                                    if currentGolferIndex < golfModel.getMaxGolferIndex() {
+                                        score = 3
+                                        teeShotLocation = .center
+                                        currentGolferIndex += 1
+                                    } else {
+                                        golfModel.incrementHoleCount()
+                                        score = 3
+                                        teeShotLocation = .center
+                                        currentGolferIndex = 0
+                                    }
+                                }) {
+                                    Text("Submit")
+                                        .font(.title)
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.green)
+                                        .cornerRadius(10)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding()
                             }
-                        }) {
-                            VStack {
-                                Text("Submit")
-                                    .font(.footnote)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.green)
-                                Image(systemName: "figure.golf")
-                                    .resizable()
-                                    .frame(width: 30, height: 30) // Adjust the size of the image as needed
-                                    .foregroundColor(Color.green)
-                            }
-                        }
-                        .onTapGesture {
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                            
                         }
                     }
                 }
@@ -225,6 +218,8 @@ struct TrackScoreView: View {
         }
     }
 }
+
+
 
 var scorecardHeader: some View {
     HStack {
@@ -273,7 +268,7 @@ struct StrokeSheetView: View {
     @Binding var score: Int
     @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
-
+    
     var body: some View {
         VStack(alignment: .center) {
             HStack {
@@ -309,7 +304,7 @@ struct ParSheetView: View {
     @Binding var score: Int
     @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
-
+    
     var body: some View {
         VStack(alignment: .center) {
             HStack {
@@ -345,7 +340,7 @@ struct TeeshotSheetview: View {
     @Binding var score: Int
     @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
-
+    
     var body: some View {
         HStack  {
             Button(action: {
@@ -377,6 +372,38 @@ struct TeeshotSheetview: View {
             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         }
         .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+    }
+}
+
+// modularity
+struct SheetButton<SheetView: View>: View {
+    let title: String
+    let imageSystemName: String
+    @Binding var isSheetPresented: Bool
+    let sheetView: () -> SheetView
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .multilineTextAlignment(.center)
+                .font(.title)
+                .fontWeight(.heavy)
+                .foregroundColor(Color.blue)
+                .padding(.leading)
+            Spacer().frame(width: 8)
+            Button(action: {
+                isSheetPresented = true
+            }) {
+                Image(systemName: imageSystemName)
+                    .font(.system(size: 24))
+                    .foregroundColor(.blue)
+                    .padding(.trailing)
+            }
+        }
+        .sheet(isPresented: $isSheetPresented) {
+            sheetView()
+        }
+        .padding()
     }
 }
 

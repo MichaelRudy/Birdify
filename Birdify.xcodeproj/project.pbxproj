@@ -97,8 +97,8 @@
 		D0C7EDDD29A8575E005B99A1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D0EEA4CB2AACD64900B400AF /* TrackScore */,
 				D0C7EDDE29A8577B005B99A1 /* MainMenuView.swift */,
-				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
 				D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */,
 				D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */,
 				D0C7EDE729A9CAF9005B99A1 /* AddGolferView.swift */,
@@ -124,6 +124,14 @@
 				D0C7EDF029ADA32D005B99A1 /* GolfGameViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D0EEA4CB2AACD64900B400AF /* TrackScore */ = {
+			isa = PBXGroup;
+			children = (
+				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
+			);
+			path = TrackScore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

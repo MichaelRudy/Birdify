@@ -74,7 +74,6 @@ struct TrackScoreView: View {
                         }
                         .listStyle(.insetGrouped)
                         
-                        
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.green)
@@ -153,7 +152,6 @@ struct TrackScoreView: View {
                                                             .font(.title3)
                                                             .fontWeight(.heavy)
                                                             .foregroundColor(Color.blue)
-                                                        
                                                     }
                                                     Spacer()
                                                     if isEditButtonVisible {
@@ -183,7 +181,6 @@ struct TrackScoreView: View {
                                 // Right side with submit button
                                 Button(action: {
                                     golfModel.addGolferScore(golferIndex: self.currentGolferIndex, score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
-                                    
                                     if currentGolferIndex < golfModel.getMaxGolferIndex() {
                                         score = 3
                                         teeShotLocation = .center
@@ -208,6 +205,7 @@ struct TrackScoreView: View {
                             }
                         }
                     }
+                    .padding(.bottom, 20.0)
                 }
             }
         }
@@ -321,36 +319,43 @@ private struct TeeshotSheetview: View {
     @Binding var teeShotLocation: Hole.TeeShotLocation
     
     var body: some View {
-        HStack  {
-            Button(action: {
-                self.teeShotLocation = .leftRough
-            }) {
-                Image(systemName: "arrow.up.left")
-                    .font(.largeTitle)
-                    .foregroundColor(teeShotLocation == .leftRough ? .blue : .gray)
-            }
-            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            
-            
-            Button(action: {
-                self.teeShotLocation = .center
-            }) {
-                Image(systemName: "arrow.up.circle")
-                    .font(.largeTitle)
-                    .foregroundColor(teeShotLocation == .center ? .blue : .gray)
-            }
-            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            
-            Button(action: {
-                self.teeShotLocation = .rightRough
-            }) {
-                Image(systemName: "arrow.up.right")
-                    .font(.largeTitle)
-                    .foregroundColor(teeShotLocation == .rightRough ? .blue : .gray)
+        VStack {
+            Text("Shot Direction")
+                .multilineTextAlignment(.center)
+                .font(.title)
+                .fontWeight(.heavy)
+                .foregroundColor(Color.blue)
+            HStack  {
+                Button(action: {
+                    self.teeShotLocation = .leftRough
+                }) {
+                    Image(systemName: "arrow.up.left")
+                        .font(.largeTitle)
+                        .foregroundColor(teeShotLocation == .leftRough ? .blue : .gray)
+                }
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                
+                
+                Button(action: {
+                    self.teeShotLocation = .center
+                }) {
+                    Image(systemName: "arrow.up.circle")
+                        .font(.largeTitle)
+                        .foregroundColor(teeShotLocation == .center ? .blue : .gray)
+                }
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                
+                Button(action: {
+                    self.teeShotLocation = .rightRough
+                }) {
+                    Image(systemName: "arrow.up.right")
+                        .font(.largeTitle)
+                        .foregroundColor(teeShotLocation == .rightRough ? .blue : .gray)
+                }
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             }
             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
 }
 

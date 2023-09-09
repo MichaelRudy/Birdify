@@ -214,9 +214,7 @@ struct TrackScoreView: View {
     }
 }
 
-
-
-var scorecardHeader: some View {
+private var scorecardHeader: some View {
     HStack {
         Text("Hole")
             .font(.headline)
@@ -240,23 +238,6 @@ var scorecardHeader: some View {
             .frame(maxWidth: .infinity) // Expand to fill available space
     }
     .padding(.vertical, 8)
-}
-
-
-// consider adding animation here and moving to separate file
-struct AddGolferButton: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel
-    var body: some View {
-        NavigationLink(destination: AddGolferView().environmentObject(golfModel)) {
-            Text("Add Golfers")
-                .font(.title2)
-                .foregroundColor(.blue)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .cornerRadius(8)
-        }
-        .isDetailLink(false)
-    }
 }
 
 // private Views used in track score view only!!
@@ -332,7 +313,7 @@ private struct ParSheetView: View {
     }
 }
 
-struct TeeshotSheetview: View {
+private struct TeeshotSheetview: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @Binding var currentGolferIndex: Int
     @Binding var score: Int
@@ -374,7 +355,7 @@ struct TeeshotSheetview: View {
 }
 
 // modularity
-struct SheetButton<SheetView: View>: View {
+private struct SheetButton<SheetView: View>: View {
     let title: String
     let imageSystemName: String
     @Binding var isSheetPresented: Bool
@@ -402,21 +383,6 @@ struct SheetButton<SheetView: View>: View {
             sheetView()
         }
         .padding()
-    }
-}
-
-struct AddCourseButton: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel
-    var body: some View {
-        NavigationLink(destination: AddCourse().environmentObject(golfModel)) {
-            Text("Add Course Information")
-                .font(.title2)
-                .foregroundColor(.blue)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .cornerRadius(8)
-        }
-        .isDetailLink(false)
     }
 }
 

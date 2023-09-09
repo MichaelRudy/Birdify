@@ -15,37 +15,58 @@ class GolfGameViewModel: ObservableObject {
     @Published var course: Course?
     @Published var isInit: Bool = false
     
-    // add golfers from the addGolferView
+    /// Adds golfers to the golfers array
+    /// - Parameters:
+    ///   - name: Player name
+    ///   - handicap: Handicap of player
+    /// - Returns: Void
     private func addGolfer(name:String, handicap: Int) -> Void {
         let newGolfer = Golfer(name:name, handicap: handicap)
         self.golfers.append(newGolfer)
     }
     
+    /// Validates golfer by ensuring proper values were inputted by the user
+    /// - Parameters:
+    ///   - name: Player name
+    ///   - handicap: Handicap of player
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
         addGolfer(name: name, handicap: handicapValue)
     }
     
+    /// Validates course by ensuring proper values were inputted by the user
+    /// - Parameters:
+    ///   - name: Name of golf course
+    ///   - par: Par of golf course (usually 72)
+    ///   - holeCount: Number of holes user intends to play
     func validateCourse(name: String, par: String, holeCount: String) {
         if let parInt = Int(par), let holeInt = Int(holeCount) {
             self.course = Course(name: name, par: parInt, holeCount: holeInt)
             self.isInit = true
         }
     }
-    
+
+    /// Sets an individuals golfer score based on certain parameters
+    /// - Parameters:
+    ///   - golferIndex: Index of the current golfer
+    ///   - score: Score of the indexed golfer on a particular hole
+    ///   - holePar: Par of a particular hole provided by the user
+    ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
     func addGolferScore(golferIndex: Int, score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
-        
-        //            golfers[golferIndex].setScore(holeIndex: holeNumber-1, score: scoreInt)
         golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
-        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1))
-        
+        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1)) // log for debugging
     }
-    
+
+    /// Gets max golfer index depending on how many golfers are keeping score during the round
+    /// - Returns: An integer index to be used when selecting from golfers array
     func getMaxGolferIndex() -> Int {
         let maxIndex = golfers.count - 1
         return maxIndex
     }
     
+    /// Gets golfers score of for a particular index
+    /// - Parameter golferIndex: Used to index the golfers array
+    /// - Returns: A string representation of their score to be used in a view
     func getGolferScore(golferIndex: Int) -> String {
         let score = golfers[golferIndex].getScore(holeIndex: self.holeNumber-1)
         
@@ -60,6 +81,11 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
+    /// Gets golfers tee shot direction for a particular index on a particular hole
+    /// - Parameters:
+    ///   - golferIndex: Used to index the golfers array
+    ///   - holeN: Hole number
+    /// - Returns: View that represents the teeshot direction (left, center, right)
     func getGolferTeeShot(golferIndex: Int, holeN: Int) -> some View {
         let teeShot = golfers[golferIndex].getTeeShot(holeIndex: holeN-1)
         switch teeShot {
@@ -93,20 +119,37 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
+    /// Gets golfers strokes
+    /// - Parameters:
+    ///   - golferIndex: Used to index the golfers array
+    ///   - holeN: Hole Number
+    /// - Returns: the strokes of a golfer on a particular hole.
     func getGolferStrokes(golferIndex: Int, holeN: Int) -> Int {
         golfers[golferIndex].getStrokes(holeIndex: holeN-1)
     }
     
+    
+    /// Gets hole par
+    /// - Parameters:
+    ///   - golferIndex: Used to index the golfers array
+    ///   - holeN: Hole Number
+    /// - Returns: Hole par (3,4,5)
     func getHolePar(golferIndex: Int, holeN: Int) -> Int {
         golfers[golferIndex].getPar(holeIndex: holeN-1)
     }
     
+    /// Increments the hole count variable by 1
     func incrementHoleCount() {
         if holeNumber <= self.course?.holeCount ?? 18 {
             holeNumber += 1
         }
     }
     
+    /// Returns a view of the score symbol used (birides are circled, bogeys are squared)
+    /// - Parameters:
+    ///   - par: Par integer for the hole
+    ///   - strokes: Amount of strokes taken on a hole
+    /// - Returns: Strokes nested in a particular view (circled represents birdies, no symbol represents par, squares represent bogeys)
     func ScoreSynbol(par: Int, strokes: Int) -> some View {
         ZStack {
             let plus_minus = strokes - par

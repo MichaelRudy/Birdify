@@ -20,6 +20,8 @@
 		D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF029ADA32D005B99A1 /* GolfGameViewModel.swift */; };
 		D0C7EDF329AF0AF9005B99A1 /* Golfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */; };
 		D0C7EDF729B1A753005B99A1 /* TrackScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */; };
+		D0EEA4C82AAC226700B400AF /* AddGolferButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */; };
+		D0EEA4CA2AAC23BE00B400AF /* AddCourseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		D0C7EDF029ADA32D005B99A1 /* GolfGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfGameViewModel.swift; sourceTree = "<group>"; };
 		D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Golfer.swift; sourceTree = "<group>"; };
 		D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackScoreView.swift; sourceTree = "<group>"; };
+		D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGolferButton.swift; sourceTree = "<group>"; };
+		D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 			children = (
 				D0C7EDDE29A8577B005B99A1 /* MainMenuView.swift */,
 				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
+				D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */,
+				D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */,
 				D0C7EDE729A9CAF9005B99A1 /* AddGolferView.swift */,
 				D0C49E9429DA14EA00A3719B /* AddCourse.swift */,
 				D080B7D82A258E4400E6B86C /* ResultsView.swift */,
@@ -193,7 +199,9 @@
 				D0C49E9329DA0FAE00A3719B /* Course.swift in Sources */,
 				D0C7EDF729B1A753005B99A1 /* TrackScoreView.swift in Sources */,
 				D0C49E9529DA14EA00A3719B /* AddCourse.swift in Sources */,
+				D0EEA4CA2AAC23BE00B400AF /* AddCourseButton.swift in Sources */,
 				D0C7EDDF29A8577B005B99A1 /* MainMenuView.swift in Sources */,
+				D0EEA4C82AAC226700B400AF /* AddGolferButton.swift in Sources */,
 				D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */,
 				D080B7D92A258E4400E6B86C /* ResultsView.swift in Sources */,
 				D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */,

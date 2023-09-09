@@ -112,9 +112,7 @@ struct TrackScoreView: View {
                                                     teeShotLocation: $teeShotLocation
                                                 )
                                             }
-                                            
                                             Divider()
-                                            
                                             Button(action: {
                                                 isStrokeSheetPresented = true
                                                 //                                                isEditButtonVisible = false
@@ -140,11 +138,10 @@ struct TrackScoreView: View {
                                                     teeShotLocation: $teeShotLocation
                                                 )
                                             }
-                                            
                                             Divider()
                                             Button(action: {
                                                 isTeeShotSheetPresented = true
-                                                //                                                isEditButtonVisible = false
+                                                //                                      isEditButtonVisible = false
                                             }) {
                                                 HStack {
                                                     VStack {
@@ -158,14 +155,13 @@ struct TrackScoreView: View {
                                                             .foregroundColor(Color.blue)
                                                         
                                                     }
-                                                    
                                                     Spacer()
                                                     if isEditButtonVisible {
                                                         Image(systemName: "square.and.pencil")
                                                             .foregroundColor(.blue)
                                                     }
                                                 }
-                                                .padding() 
+                                                .padding()
                                             }
                                             .sheet(isPresented: $isTeeShotSheetPresented) {
                                                 TeeshotSheetview(
@@ -176,7 +172,6 @@ struct TrackScoreView: View {
                                                 )
                                             }
                                         }
-                                        
                                         Spacer()
                                     }
                                 }
@@ -247,6 +242,8 @@ var scorecardHeader: some View {
     .padding(.vertical, 8)
 }
 
+
+// consider adding animation here and moving to separate file
 struct AddGolferButton: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     var body: some View {
@@ -262,7 +259,8 @@ struct AddGolferButton: View {
     }
 }
 
-struct StrokeSheetView: View {
+// private Views used in track score view only!!
+private struct StrokeSheetView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @Binding var currentGolferIndex: Int
     @Binding var score: Int
@@ -298,7 +296,7 @@ struct StrokeSheetView: View {
     }
 }
 
-struct ParSheetView: View {
+private struct ParSheetView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @Binding var currentGolferIndex: Int
     @Binding var score: Int

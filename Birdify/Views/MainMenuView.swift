@@ -16,9 +16,9 @@ struct MainMenuView: View {
         VStack{
             TabView {
                 TrackScoreView()
-//                    .tabItem {
-//                        Label("Track Round", systemImage: "menucard")
-//                    }11 
+                    .tabItem {
+                        Label("Track Round", systemImage: "menucard")
+                    }
                 AddGolferView()
                     .badge(golfModel.golfers.count)
                     .tabItem {

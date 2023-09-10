@@ -113,32 +113,6 @@ struct TrackScoreView: View {
                                             }
                                             Divider()
                                             Button(action: {
-                                                isStrokeSheetPresented = true
-                                                //                                                isEditButtonVisible = false
-                                            }) {
-                                                HStack {
-                                                    Text("Strokes")
-                                                        .font(.title3)
-                                                        .fontWeight(.heavy)
-                                                        .foregroundColor(Color.blue)
-                                                    Spacer()
-                                                    if isEditButtonVisible {
-                                                        Image(systemName: "square.and.pencil")
-                                                            .foregroundColor(.blue)
-                                                    }
-                                                }
-                                                .padding()
-                                            }
-                                            .sheet(isPresented: $isStrokeSheetPresented) {
-                                                StrokeSheetView(
-                                                    currentGolferIndex: $currentGolferIndex,
-                                                    score: $score,
-                                                    par: $par,
-                                                    teeShotLocation: $teeShotLocation
-                                                )
-                                            }
-                                            Divider()
-                                            Button(action: {
                                                 isTeeShotSheetPresented = true
                                                 //                                      isEditButtonVisible = false
                                             }) {
@@ -163,6 +137,32 @@ struct TrackScoreView: View {
                                             }
                                             .sheet(isPresented: $isTeeShotSheetPresented) {
                                                 TeeshotSheetview(
+                                                    currentGolferIndex: $currentGolferIndex,
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
+                                            Divider()
+                                            Button(action: {
+                                                isStrokeSheetPresented = true
+                                                //                                                isEditButtonVisible = false
+                                            }) {
+                                                HStack {
+                                                    Text("Strokes")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    if isEditButtonVisible {
+                                                        Image(systemName: "square.and.pencil")
+                                                            .foregroundColor(.blue)
+                                                    }
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isStrokeSheetPresented) {
+                                                StrokeSheetView(
                                                     currentGolferIndex: $currentGolferIndex,
                                                     score: $score,
                                                     par: $par,

@@ -9,8 +9,8 @@ import Foundation
 
 struct Hole: Identifiable, Hashable {
     var id = UUID()
-    private let par: Int
-    private let score: Int
+    private var par: Int
+    private var score: Int
     
     enum TeeShotLocation {
         case center
@@ -18,12 +18,29 @@ struct Hole: Identifiable, Hashable {
         case rightRough
     }
     
-    private let teeShot: TeeShotLocation
+    private var teeShot: TeeShotLocation
 
     init(par: Int, score: Int, TeeShot:TeeShotLocation) {
         self.par = par
         self.score = score
         self.teeShot = TeeShot
+    }
+    
+    mutating func setPar(_ newPar: Int) {
+        // You can add validation logic here if needed
+        par = newPar
+    }
+    
+    mutating func setScore(_ newScore: Int) {
+        // You can add validation logic here if needed
+        score = newScore
+    }
+    
+    mutating func setTeeShot(_ newTeeShot: TeeShotLocation) {
+        // You can add validation logic here if needed
+        teeShot = newTeeShot
+//        print(self.teeShot)
+        
     }
     
     var holeStrokes: Int {

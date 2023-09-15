@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel
-    @State var currentGolferIndex = 0
-    @State var score = ""
-    
+    @EnvironmentObject var golfModel: GolfGameViewModel    
     var body: some View {
         VStack{
             TabView {

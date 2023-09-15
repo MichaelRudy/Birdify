@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D034EFEB2AAFE446007B504B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D034EFEA2AAFE446007B504B /* Weather.swift */; };
 		D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D62A23E75B00E6B86C /* Hole.swift */; };
 		D080B7D92A258E4400E6B86C /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D82A258E4400E6B86C /* ResultsView.swift */; };
 		D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D034EFEA2AAFE446007B504B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		D048464F2AAFF679006370A4 /* WeatherKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeatherKit.framework; path = System/Library/Frameworks/WeatherKit.framework; sourceTree = SDKROOT; };
 		D080B7D62A23E75B00E6B86C /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		D080B7D82A258E4400E6B86C /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		D0BE3B7E295CD7F9006DEBE0 /* Birdify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birdify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,12 +58,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D048464E2AAFF679006370A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D048464F2AAFF679006370A4 /* WeatherKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D0BE3B75295CD7F9006DEBE0 = {
 			isa = PBXGroup;
 			children = (
 				D0C7EDEB29A9D13D005B99A1 /* Info.plist */,
 				D0BE3B80295CD7F9006DEBE0 /* Birdify */,
 				D0BE3B7F295CD7F9006DEBE0 /* Products */,
+				D048464E2AAFF679006370A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +125,7 @@
 			children = (
 				D0C7EDF229AF0AF9005B99A1 /* Golfer.swift */,
 				D080B7D62A23E75B00E6B86C /* Hole.swift */,
+				D034EFEA2AAFE446007B504B /* Weather.swift */,
 				D0C49E9229DA0FAE00A3719B /* Course.swift */,
 			);
 			path = Models;
@@ -210,6 +223,7 @@
 				D0EEA4CA2AAC23BE00B400AF /* AddCourseButton.swift in Sources */,
 				D0C7EDDF29A8577B005B99A1 /* MainMenuView.swift in Sources */,
 				D0EEA4C82AAC226700B400AF /* AddGolferButton.swift in Sources */,
+				D034EFEB2AAFE446007B504B /* Weather.swift in Sources */,
 				D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */,
 				D080B7D92A258E4400E6B86C /* ResultsView.swift in Sources */,
 				D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */,

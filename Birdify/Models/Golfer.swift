@@ -11,7 +11,7 @@ struct Golfer: Identifiable, Hashable {
     var id = UUID()
     private let name: String
     private let handicap: Int
-    private var score = Array(repeating: Hole(par: 0, score: 0, TeeShot: .center), count: 18)
+    private var score: [Hole] = Array(repeating: Hole(par: 0, score: 0, TeeShot: .center), count: 18)
    
     init(name: String, handicap: Int) {
         self.name = name
@@ -30,7 +30,11 @@ struct Golfer: Identifiable, Hashable {
         self.score[holeIndex] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
     }
     
-    // function for obtaining both hole par and and strokes to compute +-
+    mutating func editTeeShot(holeIndex: Int, holeTeeshot: Hole.TeeShotLocation) {
+        self.score[holeIndex].setTeeShot(holeTeeshot)
+        print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
+    }
+    
     func getScore(holeIndex: Int) -> Int {
         var plus_minus = 0
         for h in score {
@@ -38,13 +42,17 @@ struct Golfer: Identifiable, Hashable {
             let strokes = h.holeStrokes
             plus_minus += (strokes - par)
         }
-        
         return plus_minus
+    }
+
+    func getHoleData(holeIndex: Int) -> Hole {
+        self.score[holeIndex]
     }
     
     func getTeeShot(holeIndex: Int) -> Hole.TeeShotLocation {
-        print(self.score[holeIndex].holeTeeShot)
+        print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
         return self.score[holeIndex].holeTeeShot
+        
     }
     
     func getStrokes(holeIndex: Int) -> Int {

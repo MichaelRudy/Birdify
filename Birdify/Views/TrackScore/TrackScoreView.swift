@@ -16,7 +16,6 @@ struct TrackScoreView: View {
     @State private var isStrokeSheetPresented = false
     @State private var isTeeShotSheetPresented = false
     @State private var isParSheetPresented = false
-    @State private var isEditButtonVisible = true
     
     var body: some View {
         VStack {
@@ -32,27 +31,7 @@ struct TrackScoreView: View {
                     ResultsView()
                 }
                 else {
-                    VStack {
-                        let golfer = golfModel.golfers[currentGolferIndex]
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.gray)
-                            VStack {
-                                VStack {
-                                    Text(golfer.golferName)
-                                        .font(.largeTitle)
-                                        .fontWeight(.bold)
-                                        .multilineTextAlignment(.center)
-                                        .padding()
-                                    Text(golfModel.getGolferScore(golferIndex: currentGolferIndex))
-                                        .font(.largeTitle)
-                                        .fontWeight(.bold)
-                                        .multilineTextAlignment(.center)
-                                        .padding()
-                                }
-                            }
-                        }
-                        .padding()
+                    ScoreSummaryBox(currentGolferIndex: $currentGolferIndex, score: $score, par: $par, teeShotLocation: $teeShotLocation)
                         
                         List {
                             Section(header: scorecardHeader) {
@@ -64,10 +43,12 @@ struct TrackScoreView: View {
                                             .frame(maxWidth: .infinity) // Expand to fill available space
                                         golfModel.ScoreSynbol(par: golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: hole), strokes:golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: hole))
                                             .frame(maxWidth: .infinity)
-                                        golfModel.getGolferTeeShot(golferIndex: currentGolferIndex, holeN: hole)
+                                        
+                                        golfModel.golferTeeShot(for: currentGolferIndex, holeN: hole)
                                             .frame(maxWidth: .infinity)
                                     }
                                     .padding(.vertical, 8)
+                                    .background(NavigationLink("", destination: scoreRowView(currentGolferIndex: $currentGolferIndex, holeNumber: hole).environmentObject(golfModel)).opacity(0.0))
                                 }
                             }
                             .headerProminence(.increased)
@@ -88,7 +69,6 @@ struct TrackScoreView: View {
                                         Group {
                                             Button(action: {
                                                 isParSheetPresented = true
-                                                //                                                isEditButtonVisible = false
                                             }) {
                                                 HStack {
                                                     Text("Hole Par")
@@ -96,10 +76,8 @@ struct TrackScoreView: View {
                                                         .fontWeight(.heavy)
                                                         .foregroundColor(Color.blue)
                                                     Spacer()
-                                                    if isEditButtonVisible {
-                                                        Image(systemName: "square.and.pencil")
-                                                            .foregroundColor(.blue)
-                                                    }
+                                                    Image(systemName: "square.and.pencil")
+                                                        .foregroundColor(.blue)
                                                 }
                                                 .padding()
                                             }
@@ -114,7 +92,6 @@ struct TrackScoreView: View {
                                             Divider()
                                             Button(action: {
                                                 isTeeShotSheetPresented = true
-                                                //                                      isEditButtonVisible = false
                                             }) {
                                                 HStack {
                                                     VStack {
@@ -128,15 +105,39 @@ struct TrackScoreView: View {
                                                             .foregroundColor(Color.blue)
                                                     }
                                                     Spacer()
-                                                    if isEditButtonVisible {
-                                                        Image(systemName: "square.and.pencil")
-                                                            .foregroundColor(.blue)
-                                                    }
+                                                   
+                                                    Image(systemName: "square.and.pencil")
+                                                        .foregroundColor(.blue)
+                                                    
                                                 }
                                                 .padding()
                                             }
                                             .sheet(isPresented: $isTeeShotSheetPresented) {
-                                                TeeshotSheetview(
+                                                TeeshotSheetView(
+                                                    currentGolferIndex: $currentGolferIndex,
+                                                    teeShotLocation: $teeShotLocation,
+                                                    isTeeShotSheetPresented: $isTeeShotSheetPresented
+                                                )
+                                            }
+                                            Divider()
+                                            Button(action: {
+                                                isStrokeSheetPresented = true
+                                            }) {
+                                                HStack {
+                                                    Text("Strokes")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    
+                                                        Image(systemName: "square.and.pencil")
+                                                            .foregroundColor(.blue)
+                                                    
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isStrokeSheetPresented) {
+                                                StrokeSheetView(
                                                     currentGolferIndex: $currentGolferIndex,
                                                     score: $score,
                                                     par: $par,
@@ -205,12 +206,11 @@ struct TrackScoreView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 20.0)
                 }
             }
         }
     }
-}
+
 
 private var scorecardHeader: some View {
     HStack {
@@ -238,7 +238,117 @@ private var scorecardHeader: some View {
     .padding(.vertical, 8)
 }
 
+
 // private Views used in track score view only!!
+private struct scoreRowView: View {
+    @EnvironmentObject var golfModel: GolfGameViewModel
+    @Binding var currentGolferIndex: Int
+    @State private var isEditTeeShot = false
+    
+    let holeNumber: Int
+    
+    var body: some View {
+        List {
+            Section(header: scorecardHeader) {
+                HStack {
+                    Text(String(holeNumber))
+                        .frame(maxWidth: .infinity) // Expand to fill available space
+                    Text(String(golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: holeNumber)))
+                        .frame(maxWidth: .infinity) // Expand to fill available space
+                    golfModel.ScoreSynbol(par: golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: holeNumber), strokes:golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: holeNumber))
+                        .frame(maxWidth: .infinity)
+                    Button(
+                        action: {
+                            isEditTeeShot.toggle()
+                        }) {
+                            golfModel.golferTeeShot(for: currentGolferIndex, holeN: holeNumber)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .sheet(isPresented: $isEditTeeShot) {
+                            EditTeeShotView(isEditTeeShot: $isEditTeeShot, currentGolferIndex: $currentGolferIndex, holeN: holeNumber)
+                        }
+                }
+                .padding(.vertical, 8)
+            }
+            .headerProminence(.increased)
+        }
+        .listStyle(.insetGrouped)
+        
+//        VStack {
+//            HStack {
+//                Text("Hole:")
+//                    .font(.headline)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//                Text(String(holeNumber))
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//            }
+//            HStack {
+//                Text("Par:")
+//                    .font(.headline)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//                Text(String(holeData.holePar))
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//            }
+//            HStack {
+//                Text("Shot Location:")
+//                    .font(.headline)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//                golfModel.golferTeeShot(for: currentGolferIndex, holeN: holeNumber)
+//                    .frame(maxWidth: .infinity)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//            }
+//            HStack {
+//                Text("Score: ")
+//                    .font(.headline)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(Color.blue)
+//                golfModel.ScoreSynbol(par: golfModel.getHolePar(golferIndex: currentGolferIndex, holeN: holeNumber), strokes: golfModel.getGolferStrokes(golferIndex: currentGolferIndex, holeN: holeNumber))
+//            }
+//        }
+    }
+}
+
+
+
+private struct ScoreSummaryBox: View {
+    @EnvironmentObject var golfModel: GolfGameViewModel
+    @Binding var currentGolferIndex: Int
+    @Binding var score: Int
+    @Binding var par: Int
+    @Binding var teeShotLocation: Hole.TeeShotLocation
+    
+    var body: some View {
+        VStack {
+            let golfer = golfModel.golfers[currentGolferIndex]
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(hue: 0.57, saturation: 1.0, brightness: 1.0))
+                VStack {
+                    VStack {
+                        Text(golfer.golferName)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        Text(golfModel.getGolferScore(golferIndex: currentGolferIndex))
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+}
+
 private struct StrokeSheetView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @Binding var currentGolferIndex: Int
@@ -311,12 +421,40 @@ private struct ParSheetView: View {
     }
 }
 
-private struct TeeshotSheetview: View {
+private struct EditTeeShotView: View {
+    @EnvironmentObject var golfModel: GolfGameViewModel
+    @Binding var isEditTeeShot: Bool
+    @Binding var currentGolferIndex: Int
+    
+    let holeN: Int
+    
+    var body: some View {
+        VStack {
+            Text("Shot Direction")
+                .multilineTextAlignment(.center)
+                .font(.title)
+                .fontWeight(.heavy)
+                .foregroundColor(Color.blue)
+            HStack  {
+                Button(action: {
+                    golfModel.editTeeShot(golferIndex: currentGolferIndex, holeN: holeN, holeTeeshot: .leftRough)
+                    self.isEditTeeShot.toggle()
+                }) {
+                    Image(systemName: "arrow.up.left")
+                        .font(.largeTitle)
+//                        .foregroundColor(teeShotLocation == .leftRough ? .blue : .gray)
+                }
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        }
+    }
+}
+private struct TeeshotSheetView: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @Binding var currentGolferIndex: Int
-    @Binding var score: Int
-    @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
+    @Binding var isTeeShotSheetPresented: Bool
     
     var body: some View {
         VStack {
@@ -328,6 +466,7 @@ private struct TeeshotSheetview: View {
             HStack  {
                 Button(action: {
                     self.teeShotLocation = .leftRough
+                    self.isTeeShotSheetPresented.toggle()
                 }) {
                     Image(systemName: "arrow.up.left")
                         .font(.largeTitle)
@@ -338,6 +477,7 @@ private struct TeeshotSheetview: View {
                 
                 Button(action: {
                     self.teeShotLocation = .center
+                    self.isTeeShotSheetPresented.toggle()
                 }) {
                     Image(systemName: "arrow.up.circle")
                         .font(.largeTitle)
@@ -347,6 +487,7 @@ private struct TeeshotSheetview: View {
                 
                 Button(action: {
                     self.teeShotLocation = .rightRough
+                    self.isTeeShotSheetPresented.toggle()
                 }) {
                     Image(systemName: "arrow.up.right")
                         .font(.largeTitle)
@@ -359,37 +500,36 @@ private struct TeeshotSheetview: View {
     }
 }
 
-// modularity
-private struct SheetButton<SheetView: View>: View {
-    let title: String
-    let imageSystemName: String
-    @Binding var isSheetPresented: Bool
-    let sheetView: () -> SheetView
-    
-    var body: some View {
-        HStack {
-            Text(title)
-                .multilineTextAlignment(.center)
-                .font(.title)
-                .fontWeight(.heavy)
-                .foregroundColor(Color.blue)
-                .padding(.leading)
-            Spacer().frame(width: 8)
-            Button(action: {
-                isSheetPresented = true
-            }) {
-                Image(systemName: imageSystemName)
-                    .font(.system(size: 24))
-                    .foregroundColor(.blue)
-                    .padding(.trailing)
-            }
-        }
-        .sheet(isPresented: $isSheetPresented) {
-            sheetView()
-        }
-        .padding()
-    }
-}
+//private struct SheetButton<SheetView: View>: View {
+//    let title: String
+//    let imageSystemName: String
+//    @Binding var isSheetPresented: Bool
+//    let sheetView: () -> SheetView
+//
+//    var body: some View {
+//        HStack {
+//            Text(title)
+//                .multilineTextAlignment(.center)
+//                .font(.title)
+//                .fontWeight(.heavy)
+//                .foregroundColor(Color.blue)
+//                .padding(.leading)
+//            Spacer().frame(width: 8)
+//            Button(action: {
+//                isSheetPresented = true
+//            }) {
+//                Image(systemName: imageSystemName)
+//                    .font(.system(size: 24))
+//                    .foregroundColor(.blue)
+//                    .padding(.trailing)
+//            }
+//        }
+//        .sheet(isPresented: $isSheetPresented) {
+//            sheetView()
+//        }
+//        .padding()
+//    }
+//}
 
 struct TrackScoreView_Previews: PreviewProvider {
     static var previews: some View {

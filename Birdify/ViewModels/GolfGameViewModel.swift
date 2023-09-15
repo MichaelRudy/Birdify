@@ -54,7 +54,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
     func addGolferScore(golferIndex: Int, score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
         golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
-        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1)) // log for debugging
+//        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1)) // log for debugging
     }
 
     /// Gets max golfer index depending on how many golfers are keeping score during the round
@@ -86,7 +86,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - golferIndex: Used to index the golfers array
     ///   - holeN: Hole number
     /// - Returns: View that represents the teeshot direction (left, center, right)
-    func getGolferTeeShot(golferIndex: Int, holeN: Int) -> some View {
+    func golferTeeShot(for golferIndex: Int, holeN: Int) -> some View {
         let teeShot = golfers[golferIndex].getTeeShot(holeIndex: holeN-1)
         switch teeShot {
         case .center:
@@ -213,5 +213,13 @@ class GolfGameViewModel: ObservableObject {
             }
         }
         .frame(maxWidth: .infinity)
+    }
+    
+    func editTeeShot(golferIndex: Int, holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
+        golfers[golferIndex].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
+    }
+    
+    func golfHoleData(golferIndex: Int, holeN: Int) -> Hole {
+        golfers[golferIndex].getHoleData(holeIndex: holeN-1)
     }
 }

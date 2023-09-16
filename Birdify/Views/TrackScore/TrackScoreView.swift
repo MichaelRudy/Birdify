@@ -144,32 +144,6 @@ struct TrackScoreView: View {
                                                     teeShotLocation: $teeShotLocation
                                                 )
                                             }
-                                            Divider()
-                                            Button(action: {
-                                                isStrokeSheetPresented = true
-                                                //                                                isEditButtonVisible = false
-                                            }) {
-                                                HStack {
-                                                    Text("Strokes")
-                                                        .font(.title3)
-                                                        .fontWeight(.heavy)
-                                                        .foregroundColor(Color.blue)
-                                                    Spacer()
-                                                    if isEditButtonVisible {
-                                                        Image(systemName: "square.and.pencil")
-                                                            .foregroundColor(.blue)
-                                                    }
-                                                }
-                                                .padding()
-                                            }
-                                            .sheet(isPresented: $isStrokeSheetPresented) {
-                                                StrokeSheetView(
-                                                    currentGolferIndex: $currentGolferIndex,
-                                                    score: $score,
-                                                    par: $par,
-                                                    teeShotLocation: $teeShotLocation
-                                                )
-                                            }
                                         }
                                         Spacer()
                                     }

@@ -35,6 +35,10 @@ struct Golfer: Identifiable, Hashable {
         print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
     }
     
+    mutating func editScore(holeIndex: Int, newScore: Int) {
+        self.score[holeIndex].setScore(newScore)
+    }
+    
     func getScore(holeIndex: Int) -> Int {
         var plus_minus = 0
         for h in score {

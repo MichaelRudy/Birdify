@@ -214,12 +214,35 @@ class GolfGameViewModel: ObservableObject {
         }
         .frame(maxWidth: .infinity)
     }
-    
+
+    /// Edit Tee Shot
+    /// - Parameters:
+    ///   - golferIndex: Current Golfer Index
+    ///   - holeN: Hole Number
+    ///   - holeTeeshot: Shot Direction
     func editTeeShot(golferIndex: Int, holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
         golfers[golferIndex].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
     }
     
+    /// Edit Stroke
+    /// - Parameters:
+    ///   - golfIndex: Current Golfer Index
+    ///   - holeN: Hole Number
+    ///   - newStrokes: Updated Stroke
+    func editStroke(for golfIndex: Int, holeN: Int, newStrokes: Int) {
+        golfers[golfIndex].editScore(holeIndex: holeN-1, newScore: newStrokes)
+    }
+    
+    /// Gets golf hole data in the gofer's score array
+    /// - Parameters:
+    ///   - golferIndex: Current Golfer Index
+    ///   - holeN: Hole Number
+    /// - Returns: Shot Direction
     func golfHoleData(golferIndex: Int, holeN: Int) -> Hole {
         golfers[golferIndex].getHoleData(holeIndex: holeN-1)
+    }
+    
+    func golferShotDirection(golferIndex: Int, holeN: Int) -> Hole.TeeShotLocation {
+        golfers[golferIndex].getTeeShot(holeIndex: holeN)
     }
 }

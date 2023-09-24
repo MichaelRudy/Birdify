@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D034EFEB2AAFE446007B504B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D034EFEA2AAFE446007B504B /* Weather.swift */; };
+		D056343C2ABF867300B8D106 /* HoleBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D056343B2ABF867300B8D106 /* HoleBlockView.swift */; };
 		D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D62A23E75B00E6B86C /* Hole.swift */; };
 		D080B7D92A258E4400E6B86C /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D82A258E4400E6B86C /* ResultsView.swift */; };
 		D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		D034EFEA2AAFE446007B504B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D048464F2AAFF679006370A4 /* WeatherKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeatherKit.framework; path = System/Library/Frameworks/WeatherKit.framework; sourceTree = SDKROOT; };
+		D056343B2ABF867300B8D106 /* HoleBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleBlockView.swift; sourceTree = "<group>"; };
 		D080B7D62A23E75B00E6B86C /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		D080B7D82A258E4400E6B86C /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		D0BE3B7E295CD7F9006DEBE0 /* Birdify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birdify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
+				D056343B2ABF867300B8D106 /* HoleBlockView.swift */,
 			);
 			path = TrackScore;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D056343C2ABF867300B8D106 /* HoleBlockView.swift in Sources */,
 				D0C49E9329DA0FAE00A3719B /* Course.swift in Sources */,
 				D0C7EDF729B1A753005B99A1 /* TrackScoreView.swift in Sources */,
 				D0C49E9529DA14EA00A3719B /* AddCourse.swift in Sources */,

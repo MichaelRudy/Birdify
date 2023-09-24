@@ -11,9 +11,10 @@ import SwiftUI
 class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
-    @Published var holeNumber = 1
+//    @Published var holeNumber = 1
     @Published var course: Course?
     @Published var isInit: Bool = false
+    @Published var currentGolfer = 0
     
     /// Adds golfers to the golfers array
     /// - Parameters:
@@ -25,6 +26,11 @@ class GolfGameViewModel: ObservableObject {
         self.golfers.append(newGolfer)
     }
     
+    func toggleGolfer() {
+        if !golfers.isEmpty {
+            currentGolfer = (currentGolfer + 1) % golfers.count
+        }
+    }
     /// Validates golfer by ensuring proper values were inputted by the user
     /// - Parameters:
     ///   - name: Player name
@@ -52,8 +58,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - score: Score of the indexed golfer on a particular hole
     ///   - holePar: Par of a particular hole provided by the user
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
-    func addGolferScore(golferIndex: Int, score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
-        golfers[golferIndex].setScore(holeIndex: holeNumber-1, holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
+    func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
+        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
 //        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1)) // log for debugging
     }
 
@@ -67,8 +73,8 @@ class GolfGameViewModel: ObservableObject {
     /// Gets golfers score of for a particular index
     /// - Parameter golferIndex: Used to index the golfers array
     /// - Returns: A string representation of their score to be used in a view
-    func getGolferScore(golferIndex: Int) -> String {
-        let score = golfers[golferIndex].getScore(holeIndex: self.holeNumber-1)
+    func getGolferScore() -> String {
+        let score = golfers[currentGolfer].getScore()
         
         if score == 0 {
             return "E"
@@ -86,8 +92,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - golferIndex: Used to index the golfers array
     ///   - holeN: Hole number
     /// - Returns: View that represents the teeshot direction (left, center, right)
-    func golferTeeShot(for golferIndex: Int, holeN: Int) -> some View {
-        let teeShot = golfers[golferIndex].getTeeShot(holeIndex: holeN-1)
+    func golferTeeShot(holeN: Int) -> some View {
+        let teeShot = golfers[currentGolfer].getTeeShot(holeIndex: holeN-1)
         switch teeShot {
         case .center:
             return ZStack {
@@ -124,8 +130,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - golferIndex: Used to index the golfers array
     ///   - holeN: Hole Number
     /// - Returns: the strokes of a golfer on a particular hole.
-    func getGolferStrokes(golferIndex: Int, holeN: Int) -> Int {
-        golfers[golferIndex].getStrokes(holeIndex: holeN-1)
+    func getGolferStrokes(holeN: Int) -> Int {
+        golfers[currentGolfer].getStrokes(holeIndex: holeN-1)
     }
     
     
@@ -134,14 +140,14 @@ class GolfGameViewModel: ObservableObject {
     ///   - golferIndex: Used to index the golfers array
     ///   - holeN: Hole Number
     /// - Returns: Hole par (3,4,5)
-    func getHolePar(golferIndex: Int, holeN: Int) -> Int {
-        golfers[golferIndex].getPar(holeIndex: holeN-1)
+    func getHolePar(holeN: Int) -> Int {
+        golfers[currentGolfer].getPar(holeIndex: holeN-1)
     }
     
     /// Increments the hole count variable by 1
     func incrementHoleCount() {
-        if holeNumber <= self.course?.holeCount ?? 18 {
-            holeNumber += 1
+        if golfers[currentGolfer].holeNumber <= self.course?.holeCount ?? 18 {
+            golfers[currentGolfer].holeNumber += 1
         }
     }
     
@@ -220,8 +226,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - golferIndex: Current Golfer Index
     ///   - holeN: Hole Number
     ///   - holeTeeshot: Shot Direction
-    func editTeeShot(golferIndex: Int, holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
-        golfers[golferIndex].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
+    func editTeeShot(holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
+        golfers[currentGolfer].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
     }
     
     /// Edit Stroke
@@ -229,8 +235,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - golfIndex: Current Golfer Index
     ///   - holeN: Hole Number
     ///   - newStrokes: Updated Stroke
-    func editStroke(for golfIndex: Int, holeN: Int, newStrokes: Int) {
-        golfers[golfIndex].editScore(holeIndex: holeN-1, newScore: newStrokes)
+    func editStroke(holeN: Int, newStrokes: Int) {
+        golfers[currentGolfer].editScore(holeIndex: holeN-1, newScore: newStrokes)
     }
     
     /// Gets golf hole data in the gofer's score array

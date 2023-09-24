@@ -11,7 +11,9 @@ struct Golfer: Identifiable, Hashable {
     var id = UUID()
     private let name: String
     private let handicap: Int
-    private var score: [Hole] = Array(repeating: Hole(par: 0, score: 0, TeeShot: .center), count: 18)
+    private var score: [Hole] = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: 18)
+    
+    var holeNumber = 1
    
     init(name: String, handicap: Int) {
         self.name = name
@@ -26,8 +28,8 @@ struct Golfer: Identifiable, Hashable {
         handicap
     }
 
-    mutating func setScore(holeIndex: Int, holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
-        self.score[holeIndex] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
+    mutating func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
+        self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
     }
     
     mutating func editTeeShot(holeIndex: Int, holeTeeshot: Hole.TeeShotLocation) {
@@ -39,7 +41,7 @@ struct Golfer: Identifiable, Hashable {
         self.score[holeIndex].setScore(newScore)
     }
     
-    func getScore(holeIndex: Int) -> Int {
+    func getScore() -> Int {
         var plus_minus = 0
         for h in score {
             let par = h.holePar

@@ -71,6 +71,14 @@ var header: some View {
     }
 }
 
+var courseHeader: some View {
+    HStack {
+        Text("Course Name")
+        Spacer()
+        Text("Course Par")
+    }
+}
+
 var addGolferTitle: some View {
     HStack {
         Text("Add Golfers")

@@ -41,6 +41,10 @@ struct Golfer: Identifiable, Hashable {
         self.score[holeIndex].setScore(newScore)
     }
     
+    mutating func editPar(holeIndex: Int, newPar: Int) {
+        self.score[holeIndex].setPar(newPar)
+    }
+    
     func getScore() -> Int {
         var plus_minus = 0
         for h in score {

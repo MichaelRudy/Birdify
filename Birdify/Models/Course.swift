@@ -18,4 +18,12 @@ struct Course: Identifiable, Hashable {
         self.par = par
         self.holeCount = holeCount
     }
+    
+    var courseName: String {
+        name
+    }
+    
+    var coursePar: String {
+        String(par)
+    }
 }

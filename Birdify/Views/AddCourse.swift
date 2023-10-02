@@ -1,10 +1,3 @@
-//
-//  AddCourse.swift
-//  Birdify
-//
-//  Created by Michael Rudy on 4/2/23.
-//
-
 import SwiftUI
 
 struct AddCourse: View {
@@ -15,36 +8,37 @@ struct AddCourse: View {
     @State private var holeCount: String = ""
     
     var body: some View {
-        VStack {
-            addCourseTitle
-            TextField("Course Name", text: $courseName)
-                .padding()
-            TextField("Course Par", text: $coursePar)
-                .keyboardType(.numberPad)
-                .padding()
-            TextField("Hole Count", text: $holeCount)
-                .keyboardType(.numberPad)
-                .padding()
-            
-            Button("Start Golf Round") {
+        NavigationView {
+            Form {
+                Section(header: Text("Course Information").font(.title2).bold().italic().foregroundColor(.blue)) {
+                    TextField("Course Name", text: $courseName)
+                        .padding()
+                    TextField("Course Par", text: $coursePar)
+                        .keyboardType(.numberPad)
+                        .padding()
+                    TextField("Hole Count", text: $holeCount)
+                        .keyboardType(.numberPad)
+                        .padding()
+                }
+            }
+            .navigationTitle("Add Course")
+            .navigationBarItems(trailing: Button(action: {
                 golfModel.validateCourse(name: self.courseName, par: self.coursePar, holeCount: self.holeCount)
                 self.presentationMode.wrappedValue.dismiss()
-            }
+            }) {
+                Text("Start Golf Round")
+                    .font(.headline)
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            })
         }
+        .padding()
     }
 }
-            
-var addCourseTitle: some View {
-    HStack {
-        Text("Add Course Information")
-            .font(.title)
-            .fontWeight(.black)
-            .italic()
-            .foregroundColor(.blue)
-            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        Spacer()
-    }
-}
+
 
 struct AddCourse_Previews: PreviewProvider {
     static var previews: some View {

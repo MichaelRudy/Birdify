@@ -14,7 +14,4 @@ Create a gamified scorecard app that provides meaningful analytics. However, I w
      <td>Track Score View</td>
   </tr>
   <tr>
-    <td><img src="/images/addGolfer.png" width=270 height=480></td>
-    <td><img src="/images/scoreCard.png"  width=270 height=480></td>
   </tr>
- </table>

@@ -8,10 +8,3 @@ Create a gamified scorecard app that provides meaningful analytics. However, I w
  * Establish +/- round goals: allows players the ability to actively see their progress towards their set goal (gamified UI/UX)
 * Historical round analytics: develop a web application or data store that allows players the ability to see their progression. This may include average shot direction, greens hit in regulation, and number of putts per hole.
 
-<table>
-  <tr>
-    <td>Add Golfer View</td>
-     <td>Track Score View</td>
-  </tr>
-  <tr>
-  </tr>

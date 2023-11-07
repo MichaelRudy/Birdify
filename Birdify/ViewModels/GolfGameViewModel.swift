@@ -12,7 +12,7 @@ class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
 //    @Published var course: Course = Course(name: "Default Name", par: 72, holeCount: 18)
-    @Published var isInit: Bool = false
+//    @Published var isInit: Bool = false // don't think I need this
     @Published var currentGolfer = 0
     @Published var gameInit = false
     @Published var course: Course?
@@ -49,7 +49,6 @@ class GolfGameViewModel: ObservableObject {
     func validateCourse(name: String, par: String, holeCount: String) {
         if let parInt = Int(par), let holeInt = Int(holeCount) {
             self.course = Course(name: name, par: parInt, holeCount: holeInt)
-            self.isInit = true
         }
     }
 
@@ -233,8 +232,7 @@ class GolfGameViewModel: ObservableObject {
     func editStroke(holeN: Int, newStrokes: Int) {
         golfers[currentGolfer].editScore(holeIndex: holeN-1, newScore: newStrokes)
     }
-    
-    
+
     /// Edit Par
     /// - Parameters:
     ///   - holeN: Hole Number edited
@@ -254,6 +252,4 @@ class GolfGameViewModel: ObservableObject {
     func golferShotDirection(golferIndex: Int, holeN: Int) -> Hole.TeeShotLocation {
         golfers[golferIndex].getTeeShot(holeIndex: holeN)
     }
-    
-    func initGame() {}
 }

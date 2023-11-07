@@ -26,7 +26,7 @@ struct TrackScoreView: View {
                 ScoreSummaryBox()
                     .onTapGesture {
                         gm.toggleGolfer()
-                        // figure out how to carry previous hole data submitted for the rest of them
+                        // figure out how to carry previous hole data submitted for the rest of players
                     }
                 List {
                     Section(header: scorecardHeader) {
@@ -44,7 +44,7 @@ struct TrackScoreView: View {
                             .padding(.vertical, 8)
                             .background(
                                 NavigationLink("", destination: scoreRowView(holeNumber: hole).environmentObject(gm))
-                                    .opacity(0.0))
+                            .opacity(0.0))
                         }
                     }
                     .headerProminence(.increased)
@@ -197,7 +197,6 @@ private struct scoreRowView: View {
     @State private var isEditTeeShot = false
     @State private var isEditStrokes = false
     @State private var isEditPar = false
-    @State private var isInfoPopoverVisible = false
     
     var body: some View {
         ScoreSummaryBox()

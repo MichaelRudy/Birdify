@@ -12,10 +12,12 @@ struct BirdifyApp: App {
     @StateObject private var golfModel = GolfGameViewModel()
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                MainMenuView()
-                    .environmentObject(golfModel)
-            }
+//            WeatherView()
+            MainMenuView().environmentObject(golfModel)
+//            NavigationStack {
+//                MainMenuView()
+//                    .environmentObject(golfModel)
+//            }
            
         }
     }

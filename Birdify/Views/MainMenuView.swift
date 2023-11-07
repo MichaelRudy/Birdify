@@ -12,10 +12,12 @@ struct MainMenuView: View {
     var body: some View {
         VStack{
             TabView {
-                TrackScoreView()
-                    .tabItem {
-                        Label("Track Round", systemImage: "menucard")
-                    }
+                NavigationStack {
+                    TrackScoreView()
+                        .tabItem {
+                            Label("Track Round", systemImage: "menucard")
+                        }
+                }
                 AddGolferView()
                     .badge(golfModel.golfers.count)
                     .tabItem {
@@ -39,6 +41,7 @@ var title: some View {
 }
 
 struct MainMenuView_Previews: PreviewProvider {
+    @EnvironmentObject var golfModel: GolfGameViewModel
     static var previews: some View {
         NavigationStack {
             MainMenuView()

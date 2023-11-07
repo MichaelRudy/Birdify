@@ -3,6 +3,7 @@ import SwiftUI
 enum AddViewSelection {
     case course
     case golfer
+    case weather
 }
 
 struct AddContentView: View {
@@ -21,13 +22,15 @@ struct AddContentView: View {
             Picker("Add:", selection: $selectedView) {
                 Text("Course").tag(AddViewSelection.course)
                 Text("Golfer").tag(AddViewSelection.golfer)
+                Text("Weather").tag(AddViewSelection.weather)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
             
             Form {
                 Section(header: Text("Edit").font(.title2).bold().italic().foregroundColor(.blue)) {
-                    if selectedView == .course {
+                    switch selectedView {
+                    case .course:
                         TextField("Course Name", text: $courseName)
                             .multilineTextAlignment(.center)
                         TextField("Course Par", text: $coursePar)
@@ -36,7 +39,7 @@ struct AddContentView: View {
                         TextField("Hole Count", text: $holeCount)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.center)
-                    } else {
+                    case .golfer:
                         TextField("Name", text: self.$name)
                             .padding(.bottom, 10)
                             .multilineTextAlignment(.center)
@@ -52,11 +55,26 @@ struct AddContentView: View {
                             .onTapGesture {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             }
+                        
+                    case .weather:
+                        Text("Golf Round Weather Forecast")
                     }
                 }
             }
             
-            if selectedView == .golfer {
+            switch selectedView {
+            case .course:
+                List {
+                    Section(header: courseHeader) {
+                        HStack {
+                            Text(golfModel.course?.courseName ?? "Golf Course")
+                            Spacer()
+                            Text(golfModel.course?.coursePar ?? "72")
+                        }
+                    }
+                    
+                }
+            case .golfer:
                 List {
                     Section(header: header) {
                         ForEach(golfModel.golfers) { golfer in
@@ -69,19 +87,10 @@ struct AddContentView: View {
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
-            } else {
-                List {
-                    Section(header: courseHeader) {
-                        HStack {
-                            Text(golfModel.course?.courseName ?? "Golf Course")
-                            Spacer()
-                            Text(golfModel.course?.coursePar ?? "72")
-                        }
-                    }
-                    
-                }
+            case .weather:
+                WeatherView()
             }
-        
+    
             Button("Add") {
                 switch selectedView {
                 case .course:
@@ -94,7 +103,11 @@ struct AddContentView: View {
                     golfModel.validateGolfer(name: self.name, handicap: self.handicap)
                     self.name = ""
                     self.handicap = ""
+                
+                case .weather:
+                    break
                 }
+                
             }
             .disabled((selectedView == .course && (self.courseName.isEmpty || self.coursePar.isEmpty || self.holeCount.isEmpty && !isCourseSubmitted)) || (selectedView == .golfer && (self.name.isEmpty || self.handicap.isEmpty)))
             .onTapGesture {

@@ -12,16 +12,14 @@ struct MainMenuView: View {
     var body: some View {
         VStack{
             TabView {
-                NavigationStack {
-                    TrackScoreView()
-                        .tabItem {
-                            Label("Track Round", systemImage: "menucard")
-                        }
-                }
-                AddGolferView()
+                TrackScoreView()
+                    .tabItem {
+                        Label("Track Round", systemImage: "menucard")
+                    }
+                AddContentView()
                     .badge(golfModel.golfers.count)
                     .tabItem {
-                        Label("Edit Golfers", systemImage: "figure.golf")
+                        Label("Golf Round", systemImage: "figure.golf")
                     }
             }
         }

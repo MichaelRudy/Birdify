@@ -8,19 +8,27 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel    
+    @EnvironmentObject var gm: GolfGameViewModel
     var body: some View {
         VStack{
             TabView {
-                TrackScoreView()
-                    .tabItem {
-                        Label("Track Round", systemImage: "menucard")
-                    }
-                AddContentView()
-                    .badge(golfModel.golfers.count)
-                    .tabItem {
-                        Label("Golf Round", systemImage: "figure.golf")
-                    }
+                if gm.gameInit {
+                    TrackScoreView()
+                        .environmentObject(gm)
+                        .tabItem {
+                            Label("Track Round", systemImage: "menucard")
+                        }
+                    AddContentView()
+                        .environmentObject(gm)
+                        .badge(gm .golfers.count)
+                        .tabItem {
+                            Label("Golf Round", systemImage: "figure.golf")
+                        }
+                }
+                else {
+                    AddContentView()
+                        .environmentObject(gm)
+                }
             }
         }
     }

@@ -15,6 +15,7 @@ class GolfGameViewModel: ObservableObject {
     @Published var gameInit = false
     @Published var course: Course?
     @Published var selectedHole: Int = 0
+    
     /// Adds golfers to the golfers array
     /// - Parameters:
     ///   - name: Player name

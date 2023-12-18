@@ -35,40 +35,39 @@ struct TrackScoreView: View {
                 List {
                     Section(header: scorecardHeader) {
                         ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
-                            let currentHole = hole // Create a local variable to capture the current hole number
                             HStack {
                                 Text(String(hole))
                                     .frame(maxWidth: .infinity) // Expand to fill available space
                                 Text(String(gm.getHolePar(holeN: hole)))
                                     .frame(maxWidth: .infinity) // Expand to fill available space
                                     .onTapGesture {
+                                        gm.selectedHole = hole
                                         isEditPar.toggle()
                                     }
                                     .sheet(isPresented: $isEditPar, content: {
-                                        EditParView(isEditPar: $isEditPar, par: gm.getHolePar(holeN: currentHole), holeN: currentHole)
+                                        EditParView(isEditPar: $isEditPar, par: gm.getHolePar(holeN: gm.selectedHole), holeN: gm.selectedHole)
                                     })
                                 gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
                                     .frame(maxWidth: .infinity)
                                     .onTapGesture {
+                                        gm.selectedHole = hole
                                         isEditStrokes.toggle()
                                     }
                                     .sheet(isPresented: $isEditStrokes) {
-                                        EditStrokesView(isEditStrokes: $isEditStrokes, strokes: gm.getGolferStrokes(holeN: currentHole), holeN: currentHole)
+                                        EditStrokesView(isEditStrokes: $isEditStrokes, strokes: gm.getGolferStrokes(holeN: gm.selectedHole), holeN: gm.selectedHole)
                                     }
                                 gm.golferTeeShot(holeN: hole)
                                     .frame(maxWidth: .infinity)
                                     .onTapGesture {
                                         // Pass the correct hole number (currentHole) to EditTeeShotView
+                                        gm.selectedHole = hole
                                         isEditTeeShot.toggle()
                                     }
                                     .sheet(isPresented: $isEditTeeShot) {
-                                        EditTeeShotView(isEditTeeShot: $isEditTeeShot, holeN: currentHole) // Use selectedHole here
+                                        EditTeeShotView(isEditTeeShot: $isEditTeeShot, holeN: gm.selectedHole) // Use selectedHole here
                                     }
                             }
                             .padding(.vertical, 8)
-//                            .background(
-//                                NavigationLink("", destination: scoreRowView(holeNumber: hole).environmentObject(gm))
-//                            .opacity(0.0))
                         }
                     }
                     .headerProminence(.increased)

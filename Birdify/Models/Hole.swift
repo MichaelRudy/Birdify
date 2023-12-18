@@ -9,8 +9,8 @@ import Foundation
 
 struct Hole: Identifiable, Hashable {
     var id = UUID()
-    private var par: Int
-    private var score: Int
+    private var par: Int?
+    private var score: Int?
     
     enum TeeShotLocation {
         case center
@@ -44,11 +44,11 @@ struct Hole: Identifiable, Hashable {
     }
     
     var holeStrokes: Int {
-        self.score
+        self.score ?? 4
     }
     
     var holePar: Int {
-        self.par
+        self.par ?? 4
     }
     
     var holeTeeShot: TeeShotLocation {

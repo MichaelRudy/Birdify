@@ -11,6 +11,11 @@ import SwiftUI
 class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
+<<<<<<< HEAD
+=======
+//    @Published var course: Course = Course(name: "Default Name", par: 72, holeCount: 18)
+//    @Published var isInit: Bool = false // don't think I need this
+>>>>>>> 7eb3ad4 (updates)
     @Published var currentGolfer = 0
     @Published var gameInit = false
     @Published var course: Course?

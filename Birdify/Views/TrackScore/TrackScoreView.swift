@@ -22,10 +22,43 @@ struct TrackScoreView: View {
     
     var body: some View {
         VStack {
+<<<<<<< HEAD
             ScoreSummaryBox()
                 .onTapGesture {
                     gm.toggleGolfer()
                     // figure out how to carry previous hole data submitted for the rest of players
+=======
+            // Potentially move these conditonals
+            if gm.gameInit == false {
+                AddContentView()
+            }
+            else {
+                ScoreSummaryBox()
+                    .onTapGesture {
+                        gm.toggleGolfer()
+                        // figure out how to carry previous hole data submitted for the rest of players
+                    }
+                List {
+                    Section(header: scorecardHeader) {
+                        ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
+                            HStack {
+                                Text(String(hole))
+                                    .frame(maxWidth: .infinity) // Expand to fill available space
+                                Text(String(gm.getHolePar(holeN: hole)))
+                                    .frame(maxWidth: .infinity) // Expand to fill available space
+                                gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
+                                    .frame(maxWidth: .infinity)
+                                gm.golferTeeShot(holeN: hole)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .padding(.vertical, 8)
+                            .background(
+                                NavigationLink("", destination: scoreRowView(holeNumber: hole).environmentObject(gm))
+                                    .opacity(0.0))
+                        }
+                    }
+                    .headerProminence(.increased)
+>>>>>>> 7eb3ad4 (updates)
                 }
             List {
                 Section(header: scorecardHeader) {

@@ -67,7 +67,7 @@ struct AddContentView: View {
                 List {
                     Section(header: courseHeader) {
                         HStack {
-                            Text(golfModel.course?.courseName ?? "Golf Course")
+                            Text(golfModel.course?.courseName ?? "Enter Golf Course")
                             Spacer()
                             Text(golfModel.course?.coursePar ?? "72")
                         }

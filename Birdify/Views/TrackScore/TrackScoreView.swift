@@ -66,6 +66,8 @@ struct TrackScoreView: View {
                         HStack {
                             Text(String(hole))
                                 .frame(maxWidth: .infinity) // Expand to fill available space
+                                .onAppear {
+                                    print(gm.golfers[gm.currentGolfer].scoreCount)}
                             Text(String(gm.getHolePar(holeN: hole)))
                                 .frame(maxWidth: .infinity) // Expand to fill available space
                                 .onTapGesture {

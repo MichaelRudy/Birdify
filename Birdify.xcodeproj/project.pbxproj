@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D056343C2ABF867300B8D106 /* HoleBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D056343B2ABF867300B8D106 /* HoleBlockView.swift */; };
 		D056343E2AC0BBAA00B8D106 /* AddContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D056343D2AC0BBAA00B8D106 /* AddContentView.swift */; };
+		D07F2F3D2B98159600F5213E /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F2F3C2B98159600F5213E /* ScoreView.swift */; };
 		D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D62A23E75B00E6B86C /* Hole.swift */; };
 		D080B7D92A258E4400E6B86C /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D82A258E4400E6B86C /* ResultsView.swift */; };
 		D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */; };
@@ -28,12 +29,15 @@
 		D0D7D82A2ACA5E7A006E04CC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D7D8292ACA5E7A006E04CC /* LocationManager.swift */; };
 		D0EEA4C82AAC226700B400AF /* AddGolferButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */; };
 		D0EEA4CA2AAC23BE00B400AF /* AddCourseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */; };
+		D0EECFA72B954B8100D5317B /* AddCourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA62B954B8100D5317B /* AddCourseInfo.swift */; };
+		D0EECFA92B9696E200D5317B /* AddPlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA82B9696E200D5317B /* AddPlayerInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D048464F2AAFF679006370A4 /* WeatherKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeatherKit.framework; path = System/Library/Frameworks/WeatherKit.framework; sourceTree = SDKROOT; };
 		D056343B2ABF867300B8D106 /* HoleBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleBlockView.swift; sourceTree = "<group>"; };
 		D056343D2AC0BBAA00B8D106 /* AddContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentView.swift; sourceTree = "<group>"; };
+		D07F2F3C2B98159600F5213E /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		D080B7D62A23E75B00E6B86C /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
 		D080B7D82A258E4400E6B86C /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		D0BE3B7E295CD7F9006DEBE0 /* Birdify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birdify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +59,8 @@
 		D0D7D8292ACA5E7A006E04CC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGolferButton.swift; sourceTree = "<group>"; };
 		D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseButton.swift; sourceTree = "<group>"; };
+		D0EECFA62B954B8100D5317B /* AddCourseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseInfo.swift; sourceTree = "<group>"; };
+		D0EECFA82B9696E200D5317B /* AddPlayerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +128,7 @@
 			children = (
 				D0EEA4CB2AACD64900B400AF /* TrackScore */,
 				D0C7EDDE29A8577B005B99A1 /* MainMenuView.swift */,
+				D0EECFA32B9549FF00D5317B /* AddInfo */,
 				D0EEA4C92AAC23BE00B400AF /* AddCourseButton.swift */,
 				D0EEA4C72AAC226700B400AF /* AddGolferButton.swift */,
 				D0C7EDE729A9CAF9005B99A1 /* AddGolferView.swift */,
@@ -165,9 +172,19 @@
 			isa = PBXGroup;
 			children = (
 				D0C7EDF629B1A753005B99A1 /* TrackScoreView.swift */,
+				D07F2F3C2B98159600F5213E /* ScoreView.swift */,
 				D056343B2ABF867300B8D106 /* HoleBlockView.swift */,
 			);
 			path = TrackScore;
+			sourceTree = "<group>";
+		};
+		D0EECFA32B9549FF00D5317B /* AddInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D0EECFA62B954B8100D5317B /* AddCourseInfo.swift */,
+				D0EECFA82B9696E200D5317B /* AddPlayerInfo.swift */,
+			);
+			path = AddInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +264,7 @@
 				D0C49E9529DA14EA00A3719B /* AddCourse.swift in Sources */,
 				D0C1F51A2ACA5FED00EF5F9D /* WeatherView.swift in Sources */,
 				D0EEA4CA2AAC23BE00B400AF /* AddCourseButton.swift in Sources */,
+				D07F2F3D2B98159600F5213E /* ScoreView.swift in Sources */,
 				D0C7EDDF29A8577B005B99A1 /* MainMenuView.swift in Sources */,
 				D0EEA4C82AAC226700B400AF /* AddGolferButton.swift in Sources */,
 				D0C7EDE829A9CAF9005B99A1 /* AddGolferView.swift in Sources */,
@@ -256,7 +274,9 @@
 				D0C1F51C2ACA603900EF5F9D /* WelcomeView.swift in Sources */,
 				D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */,
 				D0BE3B84295CD7F9006DEBE0 /* ContentView.swift in Sources */,
+				D0EECFA92B9696E200D5317B /* AddPlayerInfo.swift in Sources */,
 				D056343E2AC0BBAA00B8D106 /* AddContentView.swift in Sources */,
+				D0EECFA72B954B8100D5317B /* AddCourseInfo.swift in Sources */,
 				D0C1F51E2ACA61F000EF5F9D /* LoadingView.swift in Sources */,
 				D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */,
 			);

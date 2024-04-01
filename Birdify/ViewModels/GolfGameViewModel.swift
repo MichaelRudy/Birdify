@@ -18,6 +18,8 @@ class GolfGameViewModel: ObservableObject {
 >>>>>>> 7eb3ad4 (updates)
     @Published var currentGolfer = 0
     @Published var gameInit = false
+    @Published var courseInfoAdded = false
+    @Published var playerInfoAdded = false
     @Published var course: Course?
     @Published var selectedHole: Int = 0
     
@@ -26,8 +28,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - name: Player name
     ///   - handicap: Handicap of player
     /// - Returns: Void
-    private func addGolfer(name:String, handicap: Int) -> Void {
-        let newGolfer = Golfer(name:name, handicap: handicap)
+    private func addGolfer(name:String, handicap: Int, score: [Hole]) -> Void {
+        let newGolfer = Golfer(name:name, handicap: handicap, score: score)
         self.golfers.append(newGolfer)
     }
     
@@ -42,7 +44,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - handicap: Handicap of player
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
-        addGolfer(name: name, handicap: handicapValue)
+        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
+        addGolfer(name: name, handicap: handicapValue, score: score)
     }
     
     /// Validates course by ensuring proper values were inputted by the user
@@ -220,7 +223,7 @@ class GolfGameViewModel: ObservableObject {
         }
         .frame(maxWidth: .infinity)
     }
-
+    
     /// Edit Tee Shot
     /// - Parameters:
     ///   - holeN: Hole Number

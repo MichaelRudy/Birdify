@@ -11,25 +11,22 @@ struct MainMenuView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     var body: some View {
         VStack{
-            TabView {
-                if gm.gameInit {
-                    TrackScoreView()
+            if (gm.courseInfoAdded && gm.playerInfoAdded) {
+                ScoreView()
+                    .environmentObject(gm)
+                    .tabItem {
+                        Label("Track Round", systemImage: "menucard")
+                    }
+            }
+            else {
+                if !gm.courseInfoAdded {
+                    AddCourseInfo()
                         .environmentObject(gm)
-                        .tabItem {
-                            Label("Track Round", systemImage: "menucard")
-                        }
-                    AddContentView()
-                        .environmentObject(gm)
-                        .badge(gm .golfers.count)
-                        .tabItem {
-                            Label("Golf Round", systemImage: "figure.golf")
-                        }
                 }
                 else {
-                    AddContentView()
-                        .environmentObject(gm)
+                    AddPlayerInfo().environmentObject(gm)
                 }
-            }
+                }
         }
     }
 }

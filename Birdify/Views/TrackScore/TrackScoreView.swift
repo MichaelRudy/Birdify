@@ -22,202 +22,200 @@ struct TrackScoreView: View {
     
     var body: some View {
         VStack {
-<<<<<<< HEAD
             ScoreSummaryBox()
                 .onTapGesture {
                     gm.toggleGolfer()
                     // figure out how to carry previous hole data submitted for the rest of players
-=======
-            // Potentially move these conditonals
-            if gm.gameInit == false {
-                AddContentView()
-            }
-            else {
-                ScoreSummaryBox()
-                    .onTapGesture {
-                        gm.toggleGolfer()
-                        // figure out how to carry previous hole data submitted for the rest of players
+                    // Potentially move these conditonals
+                    if gm.gameInit == false {
+                        AddContentView()
                     }
-                List {
-                    Section(header: scorecardHeader) {
-                        ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
-                            HStack {
-                                Text(String(hole))
-                                    .frame(maxWidth: .infinity) // Expand to fill available space
-                                Text(String(gm.getHolePar(holeN: hole)))
-                                    .frame(maxWidth: .infinity) // Expand to fill available space
-                                gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
-                                    .frame(maxWidth: .infinity)
-                                gm.golferTeeShot(holeN: hole)
-                                    .frame(maxWidth: .infinity)
+                    else {
+                        ScoreSummaryBox()
+                            .onTapGesture {
+                                gm.toggleGolfer()
+                                // figure out how to carry previous hole data submitted for the rest of players
                             }
-                            .padding(.vertical, 8)
-                            .background(
-                                NavigationLink("", destination: scoreRowView(holeNumber: hole).environmentObject(gm))
-                                    .opacity(0.0))
-                        }
-                    }
-                    .headerProminence(.increased)
->>>>>>> 7eb3ad4 (updates)
-                }
-            List {
-                Section(header: scorecardHeader) {
-                    ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
-                        HStack {
-                            Text(String(hole))
-                                .frame(maxWidth: .infinity) // Expand to fill available space
-                                .onAppear {
-                                    print(gm.golfers[gm.currentGolfer].scoreCount)}
-                            Text(String(gm.getHolePar(holeN: hole)))
-                                .frame(maxWidth: .infinity) // Expand to fill available space
-                                .onTapGesture {
-                                    gm.selectedHole = hole
-                                    isEditPar.toggle()
-                                }
-                                .sheet(isPresented: $isEditPar, content: {
-                                    EditParView(isEditPar: $isEditPar, par: gm.getHolePar(holeN: gm.selectedHole), holeN: gm.selectedHole)
-                                })
-                            gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
-                                .frame(maxWidth: .infinity)
-                                .onTapGesture {
-                                    gm.selectedHole = hole
-                                    isEditStrokes.toggle()
-                                }
-                                .sheet(isPresented: $isEditStrokes) {
-                                    EditStrokesView(isEditStrokes: $isEditStrokes, strokes: gm.getGolferStrokes(holeN: gm.selectedHole), holeN: gm.selectedHole)
-                                }
-                            gm.golferTeeShot(holeN: hole)
-                                .frame(maxWidth: .infinity)
-                                .onTapGesture {
-                                    // Pass the correct hole number (currentHole) to EditTeeShotView
-                                    gm.selectedHole = hole
-                                    isEditTeeShot.toggle()
-                                }
-                                .sheet(isPresented: $isEditTeeShot) {
-                                    EditTeeShotView(isEditTeeShot: $isEditTeeShot, holeN: gm.selectedHole) // Use selectedHole here
-                                }
-                        }
-                        .padding(.vertical, 8)
-                    }
-                }
-                .headerProminence(.increased)
-            }
-            .listStyle(.insetGrouped)
-            
-            ZStack {
-                HStack {
-                    // MARK: Bottom half of Screen to enter data
-                    NavigationView {
-                        VStack {
-                            Spacer()
-                            Group {
-                                Button(action: {
-                                    isParSheetPresented.toggle()
-                                }) {
+                        List {
+                            Section(header: scorecardHeader) {
+                                ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
                                     HStack {
-                                        Text("Hole Par")
-                                            .font(.title3)
-                                            .fontWeight(.heavy)
-                                            .foregroundColor(Color.blue)
-                                        Spacer()
-                                        Image(systemName: "square.and.pencil")
-                                            .foregroundColor(.blue)
+                                        Text(String(hole))
+                                            .frame(maxWidth: .infinity) // Expand to fill available space
+                                        Text(String(gm.getHolePar(holeN: hole)))
+                                            .frame(maxWidth: .infinity) // Expand to fill available space
+                                        gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
+                                            .frame(maxWidth: .infinity)
+                                        gm.golferTeeShot(holeN: hole)
+                                            .frame(maxWidth: .infinity)
                                     }
-                                    .padding()
+                                    .padding(.vertical, 8)
+                                    .background(
+                                        NavigationLink("", destination: scoreRowView(holeNumber: hole).environmentObject(gm))
+                                            .opacity(0.0))
                                 }
-                                .sheet(isPresented: $isParSheetPresented) {
-                                    ParSheetView(
-                                        score: $score,
-                                        par: $par,
-                                        teeShotLocation: $teeShotLocation
-                                    )
-                                }
-                                
-                                Button(action: {
-                                    isTeeShotSheetPresented.toggle()
-                                }) {
+                            }
+                            .headerProminence(.increased)
+                        }
+                        List {
+                            Section(header: scorecardHeader) {
+                                ForEach(1..<gm.golfers[gm.currentGolfer].holeNumber, id: \.self) { hole in
                                     HStack {
-                                        VStack {
-                                            Text("Tee Shot")
-                                                .font(.title3)
-                                                .fontWeight(.heavy)
-                                                .foregroundColor(Color.blue)
-                                            Text("Location")
-                                                .font(.title3)
-                                                .fontWeight(.heavy)
-                                                .foregroundColor(Color.blue)
+                                        Text(String(hole))
+                                            .frame(maxWidth: .infinity) // Expand to fill available space
+                                            .onAppear {
+                                                print(gm.golfers[gm.currentGolfer].scoreCount)}
+                                        Text(String(gm.getHolePar(holeN: hole)))
+                                            .frame(maxWidth: .infinity) // Expand to fill available space
+                                            .onTapGesture {
+                                                gm.selectedHole = hole
+                                                isEditPar.toggle()
+                                            }
+                                            .sheet(isPresented: $isEditPar, content: {
+                                                EditParView(isEditPar: $isEditPar, par: gm.getHolePar(holeN: gm.selectedHole), holeN: gm.selectedHole)
+                                            })
+                                        gm.ScoreSynbol(par: gm.getHolePar(holeN: hole), strokes:gm.getGolferStrokes(holeN: hole))
+                                            .frame(maxWidth: .infinity)
+                                            .onTapGesture {
+                                                gm.selectedHole = hole
+                                                isEditStrokes.toggle()
+                                            }
+                                            .sheet(isPresented: $isEditStrokes) {
+                                                EditStrokesView(isEditStrokes: $isEditStrokes, strokes: gm.getGolferStrokes(holeN: gm.selectedHole), holeN: gm.selectedHole)
+                                            }
+                                        gm.golferTeeShot(holeN: hole)
+                                            .frame(maxWidth: .infinity)
+                                            .onTapGesture {
+                                                // Pass the correct hole number (currentHole) to EditTeeShotView
+                                                gm.selectedHole = hole
+                                                isEditTeeShot.toggle()
+                                            }
+                                            .sheet(isPresented: $isEditTeeShot) {
+                                                EditTeeShotView(isEditTeeShot: $isEditTeeShot, holeN: gm.selectedHole) // Use selectedHole here
+                                            }
+                                    }
+                                    .padding(.vertical, 8)
+                                }
+                            }
+                            .headerProminence(.increased)
+                        }
+                        .listStyle(.insetGrouped)
+                        
+                        ZStack {
+                            HStack {
+                                // MARK: Bottom half of Screen to enter data
+                                NavigationView {
+                                    VStack {
+                                        Spacer()
+                                        Group {
+                                            Button(action: {
+                                                isParSheetPresented.toggle()
+                                            }) {
+                                                HStack {
+                                                    Text("Hole Par")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    Image(systemName: "square.and.pencil")
+                                                        .foregroundColor(.blue)
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isParSheetPresented) {
+                                                ParSheetView(
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
+                                            
+                                            Button(action: {
+                                                isTeeShotSheetPresented.toggle()
+                                            }) {
+                                                HStack {
+                                                    VStack {
+                                                        Text("Tee Shot")
+                                                            .font(.title3)
+                                                            .fontWeight(.heavy)
+                                                            .foregroundColor(Color.blue)
+                                                        Text("Location")
+                                                            .font(.title3)
+                                                            .fontWeight(.heavy)
+                                                            .foregroundColor(Color.blue)
+                                                    }
+                                                    Spacer()
+                                                    
+                                                    Image(systemName: "square.and.pencil")
+                                                        .foregroundColor(.blue)
+                                                    
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isTeeShotSheetPresented) {
+                                                TeeshotSheetView(
+                                                    teeShotLocation: $teeShotLocation,
+                                                    isTeeShotSheetPresented: $isTeeShotSheetPresented
+                                                )
+                                            }
+                                            
+                                            Button(action: {
+                                                isStrokeSheetPresented.toggle()
+                                            }) {
+                                                HStack {
+                                                    Text("Strokes")
+                                                        .font(.title3)
+                                                        .fontWeight(.heavy)
+                                                        .foregroundColor(Color.blue)
+                                                    Spacer()
+                                                    
+                                                    Image(systemName: "square.and.pencil")
+                                                        .foregroundColor(.blue)
+                                                    
+                                                }
+                                                .padding()
+                                            }
+                                            .sheet(isPresented: $isStrokeSheetPresented) {
+                                                StrokeSheetView(
+                                                    score: $score,
+                                                    par: $par,
+                                                    teeShotLocation: $teeShotLocation
+                                                )
+                                            }
                                         }
                                         Spacer()
-                                        
-                                        Image(systemName: "square.and.pencil")
-                                            .foregroundColor(.blue)
-                                        
                                     }
-                                    .padding()
                                 }
-                                .sheet(isPresented: $isTeeShotSheetPresented) {
-                                    TeeshotSheetView(
-                                        teeShotLocation: $teeShotLocation,
-                                        isTeeShotSheetPresented: $isTeeShotSheetPresented
-                                    )
-                                }
+                                .frame(maxWidth: .infinity)
+                                .background(Color.white)
                                 
+                                Spacer()
+                                
+                                // Right side with submit button
                                 Button(action: {
-                                    isStrokeSheetPresented.toggle()
+                                    gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
+                                    self.score = 4
+                                    self.par = 4
+                                    self.teeShotLocation = .center
+                                    gm.incrementHoleCount()
                                 }) {
-                                    HStack {
-                                        Text("Strokes")
-                                            .font(.title3)
-                                            .fontWeight(.heavy)
-                                            .foregroundColor(Color.blue)
-                                        Spacer()
-                                        
-                                        Image(systemName: "square.and.pencil")
-                                            .foregroundColor(.blue)
-                                        
-                                    }
-                                    .padding()
+                                    Text("Submit")
+                                        .font(.title)
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.green)
+                                        .cornerRadius(10)
                                 }
-                                .sheet(isPresented: $isStrokeSheetPresented) {
-                                    StrokeSheetView(
-                                        score: $score,
-                                        par: $par,
-                                        teeShotLocation: $teeShotLocation
-                                    )
-                                }
+                                .frame(maxWidth: .infinity)
+                                .padding()
                             }
-                            Spacer()
                         }
                     }
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                    
-                    Spacer()
-                    
-                    // Right side with submit button
-                    Button(action: {
-                        gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
-                        self.score = 4
-                        self.par = 4
-                        self.teeShotLocation = .center
-                        gm.incrementHoleCount()
-                    }) {
-                        Text("Submit")
-                            .font(.title)
-                            .fontWeight(.heavy)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.green)
-                            .cornerRadius(10)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
                 }
-            }
         }
     }
 }
-
 
 // MARK: Private structs for trackscoreview
 private var scorecardHeader: some View {

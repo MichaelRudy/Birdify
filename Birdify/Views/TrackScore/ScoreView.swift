@@ -73,58 +73,6 @@ struct ScoreView: View {
                     )
                 })
             }
-            //            NavigationView {
-            //                Button(action: {
-            //                    isTeeShotSheetPresented.toggle()
-            //                }) {
-            //                    Text("Shot")
-            //                        .font(.system(size: 25))
-            //                        .fontWeight(.bold)
-            //                    Image(systemName: "location.circle")
-            //                }
-            //                .sheet(isPresented: $isTeeShotSheetPresented) {
-            //                    TeeshotSheetView(
-            //                        teeShotLocation: $teeShotLocation,
-            //                        isTeeShotSheetPresented: $isTeeShotSheetPresented
-            //                    )
-            //                }
-            //            }
-            //            HStack {
-            //                NavigationView {
-            //                    Button(action: {
-            //                        isParSheetPresented.toggle()
-            //                    }) {
-            //                        Text("Par")
-            //                            .font(.system(size: 25))
-            //                            .fontWeight(.bold)
-            //                        Image(systemName: "parkingsign.circle")
-            //                    }
-            //                    .sheet(isPresented: $isParSheetPresented) {
-            //                        ParSheetView(
-            //                            score: $score,
-            //                            par: $par,
-            //                            teeShotLocation: $teeShotLocation
-            //                        )
-            //                    }
-            //                }
-            //                NavigationView {
-            //                    Button(action: {
-            //                        isStrokeSheetPresented.toggle()
-            //                    }) {
-            //                        Text("Strokes")
-            //                            .font(.system(size: 25))
-            //                            .fontWeight(.bold)
-            //                        Image(systemName: "square.and.pencil")
-            //                    }
-            //                    .sheet(isPresented: $isStrokeSheetPresented) {
-            //                        StrokeSheetView(
-            //                            score: $score,
-            //                            par: $par,
-            //                            teeShotLocation: $teeShotLocation
-            //                        )
-            //                    }
-            //                }
-            //            }
             Spacer(minLength: 100)
         }
         .frame(width: 350, height: 250)

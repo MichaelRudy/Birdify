@@ -11,10 +11,7 @@ struct Golfer: Identifiable, Hashable {
     var id = UUID()
     private let name: String
     private let handicap: Int
-    private var score: [Hole]
-//    private var holeNumber: Int
-//    private var score: [Hole] = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: 18)
-    
+    private var score: [Hole]    
     var holeNumber = 1
     var scoreCount: Int {
             return score.count

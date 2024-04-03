@@ -11,9 +11,6 @@ import SwiftUI
 class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
-//    @Published var course: Course = Course(name: "Default Name", par: 72, holeCount: 18)
-//    @Published var isInit: Bool = false // don't think I need this
-
     @Published var currentGolfer = 0
     @Published var gameInit = false
     @Published var courseInfoAdded = false
@@ -30,12 +27,7 @@ class GolfGameViewModel: ObservableObject {
         let newGolfer = Golfer(name:name, handicap: handicap, score: score)
         self.golfers.append(newGolfer)
     }
-    
-    func toggleGolfer() {
-        if !golfers.isEmpty {
-            currentGolfer = (currentGolfer + 1) % golfers.count
-        }
-    }
+
     /// Validates golfer by ensuring proper values were inputted by the user
     /// - Parameters:
     ///   - name: Player name
@@ -43,7 +35,7 @@ class GolfGameViewModel: ObservableObject {
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
         let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
-        addGolfer(name: name, handicap: handicapValue, score: score)
+        self.addGolfer(name: name, handicap: handicapValue, score: score)
     }
     
     /// Validates course by ensuring proper values were inputted by the user
@@ -64,22 +56,13 @@ class GolfGameViewModel: ObservableObject {
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
     func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
         golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
-//        print(golfers[golferIndex].getScore(holeIndex: holeNumber-1)) // log for debugging
     }
 
-    /// Gets max golfer index depending on how many golfers are keeping score during the round
-    /// - Returns: An integer index to be used when selecting from golfers array
-    func getMaxGolferIndex() -> Int {
-        let maxIndex = golfers.count - 1
-        return maxIndex
-    }
-    
     /// Gets golfers score of for a particular index
     /// - Parameter golferIndex: Used to index the golfers array
     /// - Returns: A string representation of their score to be used in a view
     func getGolferScore() -> String {
         let score = golfers[currentGolfer].getScore()
-        
         if score == 0 {
             return "E"
         }
@@ -136,7 +119,6 @@ class GolfGameViewModel: ObservableObject {
         golfers[currentGolfer].getStrokes(holeIndex: holeN-1)
     }
     
-    
     /// Gets hole par
     /// - Parameters:
     ///   - holeN: Hole Number
@@ -166,7 +148,6 @@ class GolfGameViewModel: ObservableObject {
                     .foregroundColor(.blue)
                     .frame(maxWidth: .infinity)
             }
-            
             else if plus_minus == -1 {
                 Circle()
                     .stroke(Color.blue, lineWidth: 2)
@@ -177,7 +158,6 @@ class GolfGameViewModel: ObservableObject {
                             .foregroundColor(.blue)
                             .frame(maxWidth: .infinity))
             }
-            
             else if plus_minus < -1 {
                 Circle()
                     .stroke(Color.blue, lineWidth: 2)
@@ -191,7 +171,6 @@ class GolfGameViewModel: ObservableObject {
                             .foregroundColor(.blue)
                             .frame(maxWidth: .infinity))
             }
-            
             else if plus_minus == 1 {
                 Rectangle()
                     .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
@@ -203,7 +182,6 @@ class GolfGameViewModel: ObservableObject {
                             .frame(maxWidth: .infinity)
                     )
             }
-            
             else if plus_minus > 1 {
                 Rectangle()
                     .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed

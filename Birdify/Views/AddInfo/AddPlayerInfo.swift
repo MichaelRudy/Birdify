@@ -108,6 +108,14 @@ struct AddPlayerInfo: View {
     }
 }
 
+var header: some View {
+    HStack {
+        Text("Golfer")
+        Spacer()
+        Text("Handicap")
+    }
+}
+
 #Preview {
     NavigationStack {
         AddPlayerInfo().environmentObject(GolfGameViewModel())

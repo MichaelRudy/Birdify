@@ -25,7 +25,6 @@ struct AddPlayerInfo: View {
                     .padding()
                 Spacer()
             }
-            
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
@@ -36,13 +35,11 @@ struct AddPlayerInfo: View {
                     .padding(.vertical, 10)
                     .font(.title2)
                     .onTapGesture {
-                        // Dismiss the keyboard
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
             }
             .cornerRadius(10)
             .padding()
-            
             Slider(value: $handicap, in: -15...50, step: 1.0)
                 .padding()
                 .accentColor(.blue)
@@ -55,7 +52,6 @@ struct AddPlayerInfo: View {
                 .italic()
                 .foregroundColor(.blue)
                 .padding()
-            
             Spacer()
             List {
                 Section(header: header) {
@@ -71,14 +67,11 @@ struct AddPlayerInfo: View {
             .listStyle(InsetGroupedListStyle())
             HStack {
                 Button(action: {
-                    // Handle "Next" button action
-                    // Add your logic here
                     let str_handicap = String(Int(handicap))
                     golfModel.validateGolfer(name: name, handicap: str_handicap)
                     name = ""
                     handicap = 0
                 }) {
-
                     Text("Add")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -89,11 +82,8 @@ struct AddPlayerInfo: View {
                 }
                 .padding()
                 Button(action: {
-                    // Handle "Next" button action
-                    // Add your logic here
                     golfModel.playerInfoAdded.toggle()
                 }) {
-
                     Text("Play ⛳️")
                         .font(.title2)
                         .fontWeight(.bold)

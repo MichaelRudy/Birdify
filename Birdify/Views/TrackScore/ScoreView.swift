@@ -77,6 +77,9 @@ struct ScoreView: View {
         }
         .frame(width: 350, height: 250)
         
+        // scoregrid goes here and replace the above stuff
+        ScoreGridView()
+        Spacer(minLength: 100)
         ZStack {
             let score = gm.getGolferScore()
             if score.contains("-") {
@@ -105,11 +108,11 @@ struct ScoreView: View {
         Spacer(minLength: 10)
         
         Button(action: {
-            gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
+            gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation, modified: true)
             self.score = 4
             self.par = 4
             self.teeShotLocation = .center
-            gm.incrementHoleCount()
+//            gm.incrementHoleCount()
         }) {
             Text("Submit")
                 .font(.title)

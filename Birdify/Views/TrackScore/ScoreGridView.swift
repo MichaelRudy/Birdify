@@ -10,22 +10,31 @@ import SwiftUI
 struct ScoreGridView: View {
     // Assuming a standard 18-hole course; modify this as needed.
     let holes: [Int] = Array(1...18)
-    let scores: [String] = Array(repeating: "-", count: 18) // Placeholder scores; replace with actual data.
-    
+    @EnvironmentObject var gm: GolfGameViewModel
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) { // Adjust spacing as needed
-                ForEach(Array(zip(holes, scores)), id: \.0) { hole, score in
+                ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].scores)), id: \.0) { hole, score in
                     HStack {
                         VStack {
+//                            Text(String(score.modified))
                             Text("\(hole)")
                                 .frame(minWidth: 50) // Adjust the width as needed
                                 .background(Color.gray.opacity(0.5))
                                 .foregroundColor(.white)
-                            Text(score)
-                                .frame(minWidth: 50) // Adjust the width as needed
-                                .background(Color.green.opacity(0.5))
-                                .foregroundColor(.black)
+                            if score.modified {
+                                Text(String(score.holeStrokes))
+                                    .frame(minWidth: 50) // Adjust the width as needed
+                                    .background(Color.green.opacity(0.5))
+                                    .foregroundColor(.black)
+                            }
+                            else {
+                                Text("-")
+                                    .frame(minWidth: 50) // Adjust the width as needed
+                                    .background(Color.green.opacity(0.5))
+                                    .foregroundColor(.black)
+                            }
                         }
                     }
                 }
@@ -36,5 +45,15 @@ struct ScoreGridView: View {
 }
 
 #Preview {
-    ScoreGridView()
+    let gm = GolfGameViewModel()
+    gm.validateGolfer(name: "Michael", handicap: "10")
+    //        gm.validateGolfer(name: "Tyler", handicap: "10")
+    gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
+    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 5, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center, modified: true)
+    return NavigationStack {
+        ScoreGridView().environmentObject(gm)
+    }
 }

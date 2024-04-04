@@ -23,6 +23,10 @@ struct Golfer: Identifiable, Hashable {
         self.score = score
     }
     
+    var scores: [Hole] {
+        score
+    }
+    
     var golferName: String {
         name
     }
@@ -31,8 +35,8 @@ struct Golfer: Identifiable, Hashable {
         handicap
     }
 
-    mutating func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
-        self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
+    mutating func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation, modified: Bool) {
+        self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot, modified: modified)
     }
     
     mutating func editTeeShot(holeIndex: Int, holeTeeshot: Hole.TeeShotLocation) {

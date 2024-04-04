@@ -11,7 +11,6 @@ struct AddPlayerInfo: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @State private var name: String = ""
     @State private var handicap: Double = 0
-    
     var body: some View {
         VStack {
             HStack {
@@ -105,6 +104,7 @@ var header: some View {
         Text("Handicap")
     }
 }
+
 
 #Preview {
     NavigationStack {

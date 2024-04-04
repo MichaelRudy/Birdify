@@ -11,6 +11,8 @@ struct Hole: Identifiable, Hashable {
     var id = UUID()
     private var par: Int?
     private var score: Int?
+    var modified: Bool 
+    
     
     enum TeeShotLocation {
         case center
@@ -20,10 +22,11 @@ struct Hole: Identifiable, Hashable {
     
     private var teeShot: TeeShotLocation
 
-    init(par: Int, score: Int, TeeShot:TeeShotLocation) {
+    init(par: Int, score: Int, TeeShot:TeeShotLocation, modified:Bool) {
         self.par = par
         self.score = score
         self.teeShot = TeeShot
+        self.modified = modified
     }
     
     mutating func setPar(_ newPar: Int) {
@@ -34,6 +37,7 @@ struct Hole: Identifiable, Hashable {
     mutating func setScore(_ newScore: Int) {
         // You can add validation logic here if needed
         score = newScore
+        self.modified = true
     }
     
     mutating func setTeeShot(_ newTeeShot: TeeShotLocation) {

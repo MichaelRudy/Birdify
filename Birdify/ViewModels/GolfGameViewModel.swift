@@ -34,7 +34,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - handicap: Handicap of player
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
-        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
+        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center, modified: false), count: self.course?.holeCount ?? 18) // check this line
         self.addGolfer(name: name, handicap: handicapValue, score: score)
     }
     
@@ -54,8 +54,9 @@ class GolfGameViewModel: ObservableObject {
     ///   - score: Score of the indexed golfer on a particular hole
     ///   - holePar: Par of a particular hole provided by the user
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
-    func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
-        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
+    func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation, modified: Bool) {
+        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot, modified: modified)
+        self.incrementHoleCount()
     }
 
     /// Gets golfers score of for a particular index

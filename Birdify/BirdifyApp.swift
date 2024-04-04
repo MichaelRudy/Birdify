@@ -18,7 +18,7 @@ struct BirdifyApp: App {
             }
 
 //            WeatherView()
-            MainMenuView().environmentObject(golfModel)
+//            MainMenuView().environmentObject(golfModel)
 //            NavigationStack {
 //                MainMenuView()
 //                    .environmentObject(golfModel)

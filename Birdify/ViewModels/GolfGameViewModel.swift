@@ -34,7 +34,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - handicap: Handicap of player
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
-        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center, modified: false), count: self.course?.holeCount ?? 18) // check this line
+        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
         self.addGolfer(name: name, handicap: handicapValue, score: score)
     }
     

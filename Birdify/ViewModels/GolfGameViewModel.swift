@@ -135,6 +135,16 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
+    func changeGolfer() {
+        let maxIndex = (self.golfers.count - 1)
+        if self.currentGolfer < maxIndex {
+            self.currentGolfer += 1
+        }
+        else {
+            self.currentGolfer = 0
+        }
+    }
+    
 //    /// Returns a view of the score symbol used (birides are circled, bogeys are squared)
 //    /// - Parameters:
 //    ///   - par: Par integer for the hole

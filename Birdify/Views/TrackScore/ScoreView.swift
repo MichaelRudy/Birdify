@@ -23,6 +23,11 @@ struct ScoreView: View {
         VStack {
             HStack {
                 let golfer = gm.golfers[gm.currentGolfer]
+//                Button(action: {
+//                    gm.changeGolfer()
+//                }) {
+//                    Text(golfer.name).padding()
+//                }
                 Text(golfer.name).padding()
                 Spacer()
                 Text("Hole \(String(golfer.holeNumber))").padding()
@@ -78,8 +83,8 @@ struct ScoreView: View {
         .frame(width: 350, height: 250)
         
         // scoregrid goes here and replace the above stuff
-        ScoreGridView()
-        Spacer(minLength: 100)
+        ScoreGridView().environmentObject(gm)
+        Spacer(minLength: 70)
         ZStack {
             let score = gm.getGolferScore()
             if score.contains("-") {

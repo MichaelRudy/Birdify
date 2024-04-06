@@ -14,14 +14,13 @@ class Golfer: ObservableObject, Identifiable {
     private var score: [Hole]
     
     // Default Properties
-    var holeNumber = 1
+    var holeNumber: Int = 1
     var id: UUID = UUID()
     
-    init(name: String, handicap: Int, score: [Hole], holeNumber: Int = 1) {
+    init(name: String, handicap: Int, score: [Hole]) {
         self.name = name
         self.handicap = handicap
         self.score = score
-        self.holeNumber = holeNumber
     }
     
     func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {

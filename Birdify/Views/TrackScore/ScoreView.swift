@@ -23,9 +23,9 @@ struct ScoreView: View {
         VStack {
             HStack {
                 let golfer = gm.golfers[gm.currentGolfer]
-                Text(golfer.golferName)
+                Text(golfer.name).padding()
                 Spacer()
-                Text("Hole \(String(golfer.holeNumber))")
+                Text("Hole \(String(golfer.holeNumber))").padding()
             }
             Spacer(minLength: 70)
             HStack {

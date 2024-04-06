@@ -55,7 +55,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - holePar: Par of a particular hole provided by the user
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
     func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation, modified: Bool) {
-        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot, modified: modified)
+        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
         self.incrementHoleCount()
     }
 
@@ -112,21 +112,21 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
-    /// Gets golfers strokes
-    /// - Parameters:
-    ///   - holeN: Hole Number
-    /// - Returns: the strokes of a golfer on a particular hole.
-    func getGolferStrokes(holeN: Int) -> Int {
-        golfers[currentGolfer].getStrokes(holeIndex: holeN-1)
-    }
-    
-    /// Gets hole par
-    /// - Parameters:
-    ///   - holeN: Hole Number
-    /// - Returns: Hole par (3,4,5)
-    func getHolePar(holeN: Int) -> Int {
-        golfers[currentGolfer].getPar(holeIndex: holeN-1)
-    }
+//    /// Gets golfers strokes
+//    /// - Parameters:
+//    ///   - holeN: Hole Number
+//    /// - Returns: the strokes of a golfer on a particular hole.
+//    func getGolferStrokes(holeN: Int) -> Int {
+//        golfers[currentGolfer].getStrokes(holeIndex: holeN-1)
+//    }
+//    
+//    /// Gets hole par
+//    /// - Parameters:
+//    ///   - holeN: Hole Number
+//    /// - Returns: Hole par (3,4,5)
+//    func getHolePar(holeN: Int) -> Int {
+//        golfers[currentGolfer].getPar(holeIndex: holeN-1)
+//    }
     
     /// Increments the hole count variable by 1
     func incrementHoleCount() {
@@ -135,105 +135,105 @@ class GolfGameViewModel: ObservableObject {
         }
     }
     
-    /// Returns a view of the score symbol used (birides are circled, bogeys are squared)
-    /// - Parameters:
-    ///   - par: Par integer for the hole
-    ///   - strokes: Amount of strokes taken on a hole
-    /// - Returns: Strokes nested in a particular view (circled represents birdies, no symbol represents par, squares represent bogeys)
-    func ScoreSynbol(par: Int, strokes: Int) -> some View {
-        ZStack {
-            let plus_minus = strokes - par
-            if plus_minus == 0 {
-                Text(String(strokes))
-                    .font(.title)
-                    .foregroundColor(.blue)
-                    .frame(maxWidth: .infinity)
-            }
-            else if plus_minus == -1 {
-                Circle()
-                    .stroke(Color.blue, lineWidth: 2)
-                    .frame(width: 40, height: 40)
-                    .overlay(
-                        Text(String(strokes))
-                            .font(.title)
-                            .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity))
-            }
-            else if plus_minus < -1 {
-                Circle()
-                    .stroke(Color.blue, lineWidth: 2)
-                    .frame(width: 40, height: 40)
-                Circle()
-                    .stroke(Color.blue, lineWidth: 2)
-                    .frame(width: 30, height: 30)
-                    .overlay(
-                        Text(String(strokes))
-                            .font(.title)
-                            .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity))
-            }
-            else if plus_minus == 1 {
-                Rectangle()
-                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
-                    .frame(width: 40, height: 40)
-                    .overlay(
-                        Text(String(strokes))
-                            .font(.title)
-                            .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity)
-                    )
-            }
-            else if plus_minus > 1 {
-                Rectangle()
-                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
-                    .frame(width: 40, height: 40)
-                Rectangle()
-                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
-                    .frame(width: 30, height: 30)
-                    .overlay(
-                        Text(String(strokes))
-                            .font(.title)
-                            .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity)
-                    )
-            }
-        }
-        .frame(maxWidth: .infinity)
-    }
+//    /// Returns a view of the score symbol used (birides are circled, bogeys are squared)
+//    /// - Parameters:
+//    ///   - par: Par integer for the hole
+//    ///   - strokes: Amount of strokes taken on a hole
+//    /// - Returns: Strokes nested in a particular view (circled represents birdies, no symbol represents par, squares represent bogeys)
+//    func ScoreSynbol(par: Int, strokes: Int) -> some View {
+//        ZStack {
+//            let plus_minus = strokes - par
+//            if plus_minus == 0 {
+//                Text(String(strokes))
+//                    .font(.title)
+//                    .foregroundColor(.blue)
+//                    .frame(maxWidth: .infinity)
+//            }
+//            else if plus_minus == -1 {
+//                Circle()
+//                    .stroke(Color.blue, lineWidth: 2)
+//                    .frame(width: 40, height: 40)
+//                    .overlay(
+//                        Text(String(strokes))
+//                            .font(.title)
+//                            .foregroundColor(.blue)
+//                            .frame(maxWidth: .infinity))
+//            }
+//            else if plus_minus < -1 {
+//                Circle()
+//                    .stroke(Color.blue, lineWidth: 2)
+//                    .frame(width: 40, height: 40)
+//                Circle()
+//                    .stroke(Color.blue, lineWidth: 2)
+//                    .frame(width: 30, height: 30)
+//                    .overlay(
+//                        Text(String(strokes))
+//                            .font(.title)
+//                            .foregroundColor(.blue)
+//                            .frame(maxWidth: .infinity))
+//            }
+//            else if plus_minus == 1 {
+//                Rectangle()
+//                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+//                    .frame(width: 40, height: 40)
+//                    .overlay(
+//                        Text(String(strokes))
+//                            .font(.title)
+//                            .foregroundColor(.blue)
+//                            .frame(maxWidth: .infinity)
+//                    )
+//            }
+//            else if plus_minus > 1 {
+//                Rectangle()
+//                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+//                    .frame(width: 40, height: 40)
+//                Rectangle()
+//                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
+//                    .frame(width: 30, height: 30)
+//                    .overlay(
+//                        Text(String(strokes))
+//                            .font(.title)
+//                            .foregroundColor(.blue)
+//                            .frame(maxWidth: .infinity)
+//                    )
+//            }
+//        }
+//        .frame(maxWidth: .infinity)
+//    }
     
     /// Edit Tee Shot
     /// - Parameters:
     ///   - holeN: Hole Number
     ///   - holeTeeshot: Shot Direction
-    func editTeeShot(holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
-        golfers[currentGolfer].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
-    }
+//    func editTeeShot(holeN: Int, holeTeeshot: Hole.TeeShotLocation) {
+//        golfers[currentGolfer].editTeeShot(holeIndex: holeN-1, holeTeeshot: holeTeeshot)
+//    }
     
     /// Edit Stroke
     /// - Parameters:
     ///   - holeN: Hole Number
     ///   - newStrokes: Updated Stroke
-    func editStroke(holeN: Int, newStrokes: Int) {
-        golfers[currentGolfer].editScore(holeIndex: holeN-1, newScore: newStrokes)
-    }
-
-    /// Edit Par
-    /// - Parameters:
-    ///   - holeN: Hole Number edited
-    ///   - newPar: Updated Par for hole
-    func editPar(holeN: Int, newPar: Int) {
-        golfers[currentGolfer].editPar(holeIndex: holeN-1, newPar: newPar)
-    }
-    
-    /// Gets golf hole data in the gofer's score array
-    /// - Parameters:
-    ///   - holeN: Hole Number
-    /// - Returns: Shot Direction
-    func golfHoleData(golferIndex: Int, holeN: Int) -> Hole {
-        golfers[golferIndex].getHoleData(holeIndex: holeN-1)
-    }
-    
-    func golferShotDirection(golferIndex: Int, holeN: Int) -> Hole.TeeShotLocation {
-        golfers[golferIndex].getTeeShot(holeIndex: holeN)
-    }
+//    func editStroke(holeN: Int, newStrokes: Int) {
+//        golfers[currentGolfer].editScore(holeIndex: holeN-1, newScore: newStrokes)
+//    }
+//
+//    /// Edit Par
+//    /// - Parameters:
+//    ///   - holeN: Hole Number edited
+//    ///   - newPar: Updated Par for hole
+//    func editPar(holeN: Int, newPar: Int) {
+//        golfers[currentGolfer].editPar(holeIndex: holeN-1, newPar: newPar)
+//    }
+//    
+//    /// Gets golf hole data in the gofer's score array
+//    /// - Parameters:
+//    ///   - holeN: Hole Number
+//    /// - Returns: Shot Direction
+//    func golfHoleData(golferIndex: Int, holeN: Int) -> Hole {
+//        golfers[golferIndex].getHoleData(holeIndex: holeN-1)
+//    }
+//    
+//    func golferShotDirection(golferIndex: Int, holeN: Int) -> Hole.TeeShotLocation {
+//        golfers[golferIndex].getTeeShot(holeIndex: holeN)
+//    }
 }

@@ -56,9 +56,9 @@ struct AddPlayerInfo: View {
                 Section(header: header) {
                     ForEach(golfModel.golfers) { golfer in
                         HStack {
-                            Text(golfer.golferName)
+                            Text(golfer.name)
                             Spacer()
-                            Text(String(golfer.golferHandicap))
+                            Text(String(golfer.handicap))
                         }
                     }
                 }

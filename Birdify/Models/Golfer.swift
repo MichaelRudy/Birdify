@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Golfer: ObservableObject {
+class Golfer: ObservableObject, Identifiable {
     
     let name: String
     let handicap: Int
@@ -26,8 +26,32 @@ class Golfer: ObservableObject {
     
     func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
         self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
+        self.score[holeNumber-1].modified = true
+    }
+    
+    func getScore() -> Int {
+        var plus_minus = 0
+        for h in score {
+            let par = h.holePar
+            let strokes = h.holeStrokes
+            plus_minus += (strokes - par)
+            }
+        return plus_minus
+        }
+    
+    func getTeeShot(holeIndex: Int) -> Hole.TeeShotLocation {
+        print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
+        return self.score[holeIndex].holeTeeShot
+    
+    }
+    
+    // computed properties - value types
+    var scores: [Hole] {
+        self.score
     }
 }
+
+    
 
 
 

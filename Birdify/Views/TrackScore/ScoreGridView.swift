@@ -18,16 +18,23 @@ struct ScoreGridView: View {
                 ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].scores)), id: \.0) { hole, score in
                     HStack {
                         VStack {
-//                            Text(String(score.modified))
                             Text("\(hole)")
                                 .frame(minWidth: 50) // Adjust the width as needed
                                 .background(Color.gray.opacity(0.5))
                                 .foregroundColor(.white)
                             if score.modified {
-                                Text(String(score.holeStrokes))
-                                    .frame(minWidth: 50) // Adjust the width as needed
-                                    .background(Color.green.opacity(0.5))
-                                    .foregroundColor(.black)
+                                if score.overPar {
+                                    Text(String(score.holeStrokes))
+                                        .frame(minWidth: 50) // Adjust the width as needed
+                                        .background(Color.red.opacity(0.5))
+                                        .foregroundColor(.black)
+                                }
+                                else {
+                                    Text(String(score.holeStrokes))
+                                        .frame(minWidth: 50) // Adjust the width as needed
+                                        .background(Color.green.opacity(0.5))
+                                        .foregroundColor(.black)
+                                }
                             }
                             else {
                                 Text("-")

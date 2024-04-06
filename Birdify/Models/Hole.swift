@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Hole: ObservableObject {
+class Hole: ObservableObject, Identifiable {
     private var par: Int
     private var score: Int
     enum TeeShotLocation {
@@ -19,6 +19,7 @@ class Hole: ObservableObject {
     
     // Default Properties
     let id: UUID = UUID()
+    var modified: Bool = false
     
     init(par: Int, score: Int, TeeShot: TeeShotLocation) {
         self.par = par
@@ -26,7 +27,27 @@ class Hole: ObservableObject {
         self.teeShot = TeeShot
     }
     
+    // computed properties (value type not reference to hole)
+    var holePar: Int {
+        self.par
+    }
     
+    var holeTeeShot: TeeShotLocation {
+        self.teeShot
+    }
+    
+    var holeStrokes: Int {
+        self.score
+    }
+    
+    var overPar: Bool {
+        if self.holeStrokes - self.par >= 0 {
+            return false
+        }
+        else {
+            return true
+        }
+    }
 }
 
 //

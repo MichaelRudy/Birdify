@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct ScoreView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     @State var score = 4
@@ -23,7 +24,11 @@ struct ScoreView: View {
         VStack {
             HStack {
                 let golfer = gm.golfers[gm.currentGolfer]
-                Text(String(gm.golfers[gm.currentGolfer].scores[0].holeStrokes))
+                Button(action: {
+                    golfer.holeNumber += 1
+                }) {
+                    Text(String(golfer.holeNumber))
+                }
 //                Button(action: {
 //                    gm.changeGolfer()
 //                }) {
@@ -133,6 +138,7 @@ struct ScoreView: View {
     }
 }
 
+@available(iOS 17.0, *)
 private struct StrokeSheetView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     @Binding var score: Int
@@ -167,7 +173,7 @@ private struct StrokeSheetView: View {
         .padding()
     }
 }
-
+@available(iOS 17.0, *)
 private struct ParSheetView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     @Binding var score: Int
@@ -202,7 +208,7 @@ private struct ParSheetView: View {
         .padding()
     }
 }
-
+@available(iOS 17.0, *)
 private struct TeeshotSheetView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     @Binding var teeShotLocation: Hole.TeeShotLocation
@@ -249,7 +255,7 @@ private struct TeeshotSheetView: View {
         }
     }
 }
-
+@available(iOS 17.0, *)
 #Preview {
     let gm = GolfGameViewModel()
     gm.validateGolfer(name: "Michael", handicap: "10")

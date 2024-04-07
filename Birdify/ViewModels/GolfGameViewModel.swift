@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@available(iOS 17.0, *)
 class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()

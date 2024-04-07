@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct ScoreGridView: View {
     // Assuming a standard 18-hole course; modify this as needed.
     let holes: [Int] = Array(1...18)
@@ -15,7 +16,7 @@ struct ScoreGridView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) { // Adjust spacing as needed
-                ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].scores)), id: \.0) { hole, score in
+                ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].score)), id: \.0) { hole, score in
                     HStack {
                         VStack {
                             Text("\(hole)")
@@ -50,7 +51,7 @@ struct ScoreGridView: View {
         }
     }
 }
-
+@available(iOS 17.0, *)
 #Preview {
     let gm = GolfGameViewModel()
     gm.validateGolfer(name: "Michael", handicap: "10")

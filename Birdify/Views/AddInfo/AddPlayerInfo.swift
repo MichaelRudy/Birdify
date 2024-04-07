@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct AddPlayerInfo: View {
     @EnvironmentObject var golfModel: GolfGameViewModel
     @State private var name: String = ""
@@ -105,7 +106,7 @@ var header: some View {
     }
 }
 
-
+@available(iOS 17.0, *)
 #Preview {
     NavigationStack {
         AddPlayerInfo().environmentObject(GolfGameViewModel())

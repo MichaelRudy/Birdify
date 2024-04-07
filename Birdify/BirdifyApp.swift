@@ -8,6 +8,7 @@
 import SwiftUI
 
 @main
+@available(iOS 17.0, *)
 struct BirdifyApp: App {
     @StateObject private var golfModel = GolfGameViewModel()
     var body: some Scene {

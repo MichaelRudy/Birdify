@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01D81952BC31EA300002749 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01D81942BC31EA300002749 /* TestView.swift */; };
 		D07F2F3D2B98159600F5213E /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07F2F3C2B98159600F5213E /* ScoreView.swift */; };
 		D080B7D72A23E75B00E6B86C /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = D080B7D62A23E75B00E6B86C /* Hole.swift */; };
 		D0BE3B82295CD7F9006DEBE0 /* BirdifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BE3B81295CD7F9006DEBE0 /* BirdifyApp.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D01D81942BC31EA300002749 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		D048464F2AAFF679006370A4 /* WeatherKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeatherKit.framework; path = System/Library/Frameworks/WeatherKit.framework; sourceTree = SDKROOT; };
 		D07F2F3C2B98159600F5213E /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		D080B7D62A23E75B00E6B86C /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				D07F2F3C2B98159600F5213E /* ScoreView.swift */,
+				D01D81942BC31EA300002749 /* TestView.swift */,
 				D0FE3B582BBCE772007B8C15 /* ScoreGridView.swift */,
 			);
 			path = TrackScore;
@@ -240,6 +243,7 @@
 				D0C49E9329DA0FAE00A3719B /* Course.swift in Sources */,
 				D0C1F51A2ACA5FED00EF5F9D /* WeatherView.swift in Sources */,
 				D07F2F3D2B98159600F5213E /* ScoreView.swift in Sources */,
+				D01D81952BC31EA300002749 /* TestView.swift in Sources */,
 				D0C7EDDF29A8577B005B99A1 /* MainMenuView.swift in Sources */,
 				D0C7EDF129ADA32D005B99A1 /* GolfGameViewModel.swift in Sources */,
 				D0C7EDF329AF0AF9005B99A1 /* Golfer.swift in Sources */,

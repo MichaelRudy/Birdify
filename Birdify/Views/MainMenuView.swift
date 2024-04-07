@@ -7,27 +7,28 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct MainMenuView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     var body: some View {
         VStack{
-            
-            if (gm.courseInfoAdded && gm.playerInfoAdded) {
-                ScoreView()
-                    .environmentObject(gm)
-                    .tabItem {
-                        Label("Track Round", systemImage: "menucard")
-                    }
-            }
-            else {
-                if !gm.courseInfoAdded {
-                    AddCourseInfo()
-                        .environmentObject(gm)
-                }
-                else {
-                    AddPlayerInfo().environmentObject(gm)
-                }
-            }
+//            if (gm.courseInfoAdded && gm.playerInfoAdded) {
+//                ScoreView()
+//                    .environmentObject(gm)
+//                    .tabItem {
+//                        Label("Track Round", systemImage: "menucard")
+//                    }
+//            }
+//            else {
+//                if !gm.courseInfoAdded {
+//                    AddCourseInfo()
+//                        .environmentObject(gm)
+//                }
+//                else {
+//                    AddPlayerInfo().environmentObject(gm)
+//                }
+//            }
+            TestView().environmentObject(gm)
         }
     }
 }
@@ -44,6 +45,7 @@ var title: some View {
     }
 }
 
+@available(iOS 17.0, *)
 #Preview {
     let gm = GolfGameViewModel()
     gm.validateGolfer(name: "Michael", handicap: "10")

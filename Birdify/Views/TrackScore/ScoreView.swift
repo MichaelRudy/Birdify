@@ -23,6 +23,7 @@ struct ScoreView: View {
         VStack {
             HStack {
                 let golfer = gm.golfers[gm.currentGolfer]
+                Text(String(gm.golfers[gm.currentGolfer].scores[0].holeStrokes))
 //                Button(action: {
 //                    gm.changeGolfer()
 //                }) {
@@ -117,7 +118,6 @@ struct ScoreView: View {
             self.score = 4
             self.par = 4
             self.teeShotLocation = .center
-//            gm.incrementHoleCount()
         }) {
             Text("Submit")
                 .font(.title)

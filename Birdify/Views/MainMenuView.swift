@@ -44,12 +44,16 @@ var title: some View {
     }
 }
 
-struct MainMenuView_Previews: PreviewProvider {
-    @EnvironmentObject var golfModel: GolfGameViewModel
-    static var previews: some View {
-        NavigationStack {
-            MainMenuView()
-                .environmentObject(GolfGameViewModel())
-        }
+#Preview {
+    let gm = GolfGameViewModel()
+    gm.validateGolfer(name: "Michael", handicap: "10")
+    //        gm.validateGolfer(name: "Tyler", handicap: "10")
+    gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
+    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 5, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center, modified: true)
+    return NavigationStack {
+        MainMenuView().environmentObject(gm)
     }
 }

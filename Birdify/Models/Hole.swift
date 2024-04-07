@@ -8,18 +8,26 @@
 import Foundation
 
 class Hole: ObservableObject, Identifiable {
-    private var par: Int
-    private var score: Int
+    @Published private var par: Int {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    @Published private var score: Int {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     enum TeeShotLocation {
         case center
         case leftRough
         case rightRough
     }
-    private var teeShot: TeeShotLocation
+    @Published private var teeShot: TeeShotLocation
     
     // Default Properties
     let id: UUID = UUID()
-    var modified: Bool = false
+    @Published var modified: Bool = false
     
     init(par: Int, score: Int, TeeShot: TeeShotLocation) {
         self.par = par
@@ -34,6 +42,16 @@ class Hole: ObservableObject, Identifiable {
     
     var holeTeeShot: TeeShotLocation {
         self.teeShot
+    }
+    
+    func setPar(_ newPar: Int) {
+        self.par = newPar
+        modified = true
+    }
+        
+    func setScore(_ newScore: Int) {
+        self.score = newScore
+        modified = true
     }
     
     var holeStrokes: Int {

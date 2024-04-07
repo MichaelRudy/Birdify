@@ -54,7 +54,7 @@ class GolfGameViewModel: ObservableObject {
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
     func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation, modified: Bool) {
         golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
-        self.incrementHoleCount()
+        print("Debug: \(ObjectIdentifier(golfers[currentGolfer])) hole 1 score is: \(golfers[currentGolfer].score[0].holeStrokes)")
     }
 
     /// Gets golfers score of for a particular index
@@ -127,12 +127,13 @@ class GolfGameViewModel: ObservableObject {
 //    }
     
     /// Increments the hole count variable by 1
-    func incrementHoleCount() {
-        if golfers[currentGolfer].holeNumber <= self.course?.holeCount ?? 18 { // check this line
-            golfers[currentGolfer].holeNumber += 1
-        }
-    }
-    
+//    func incrementHoleCount() {
+//        if golfers[currentGolfer].holeNumber <= self.course?.holeCount ?? 18 { // check this line
+//            golfers[currentGolfer].holeNumber += 1
+//        }
+//        print("Debug: \(ObjectIdentifier(golfers[currentGolfer])) set hole number to \(golfers[currentGolfer].holeNumber)")
+//    }
+//    
     func changeGolfer() {
         let maxIndex = (self.golfers.count - 1)
         if self.currentGolfer < maxIndex {

@@ -11,10 +11,18 @@ class Golfer: ObservableObject, Identifiable {
     
     let name: String
     let handicap: Int
-    private var score: [Hole]
+    var score: [Hole] {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     
     // Default Properties
-    var holeNumber: Int = 1
+    var holeNumber: Int = 1 {
+        willSet {
+            objectWillChange.send()
+        }
+    }
     var id: UUID = UUID()
     
     init(name: String, handicap: Int, score: [Hole]) {
@@ -24,8 +32,14 @@ class Golfer: ObservableObject, Identifiable {
     }
     
     func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
-        self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
-        self.score[holeNumber-1].modified = true
+        print("First Hole Score is: \(self.score[0].holeStrokes)")
+        print("Using hole number to set score: \(self.holeNumber - 1)")
+        self.score[self.holeNumber - 1].setPar(holePar)
+        self.score[self.holeNumber - 1].setScore(holeScore)
+        self.holeNumber += 1
+        print("First hole Score should be 8. It is actually: \(self.score[0].holeStrokes)")
+//        self.score[holeNumber-1] = Hole(par: holePar, score: holeScore, TeeShot: holeTeeshot)
+//        self.score[holeNumber-1].modified = true
     }
     
     func getScore() -> Int {

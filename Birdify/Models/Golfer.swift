@@ -37,7 +37,7 @@ class Golfer: ObservableObject, Identifiable {
             }
         return plus_minus
         }
-    
+
     func getTeeShot(holeIndex: Int) -> Hole.TeeShotLocation {
         print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
         return self.score[holeIndex].holeTeeShot

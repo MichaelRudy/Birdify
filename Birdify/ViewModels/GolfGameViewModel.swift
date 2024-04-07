@@ -12,11 +12,9 @@ class GolfGameViewModel: ObservableObject {
     
     @Published var golfers = [Golfer]()
     @Published var currentGolfer = 0
-    @Published var gameInit = false
     @Published var courseInfoAdded = false
     @Published var playerInfoAdded = false
     @Published var course: Course?
-    @Published var selectedHole: Int = 0
     
     /// Adds golfers to the golfers array
     /// - Parameters:

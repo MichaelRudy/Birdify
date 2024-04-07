@@ -11,6 +11,7 @@ struct MainMenuView: View {
     @EnvironmentObject var gm: GolfGameViewModel
     var body: some View {
         VStack{
+            
             if (gm.courseInfoAdded && gm.playerInfoAdded) {
                 ScoreView()
                     .environmentObject(gm)
@@ -26,7 +27,7 @@ struct MainMenuView: View {
                 else {
                     AddPlayerInfo().environmentObject(gm)
                 }
-                }
+            }
         }
     }
 }

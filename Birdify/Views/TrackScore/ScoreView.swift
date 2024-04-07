@@ -78,7 +78,7 @@ struct ScoreView: View {
         .frame(width: 350, height: 250)
         
         // scoregrid goes here and replace the above stuff
-        ScoreGridView()
+        ScoreGridView().environmentObject(gm)
         Spacer(minLength: 100)
         ZStack {
             let score = gm.getGolferScore()

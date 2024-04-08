@@ -9,21 +9,20 @@ import Foundation
 import SwiftUI
 
 @available(iOS 17.0, *)
-class GolfGameViewModel: ObservableObject {
-    
-    @Published var golfers = [Golfer]()
-    @Published var currentGolfer = 0
-    @Published var courseInfoAdded = false
-    @Published var playerInfoAdded = false
-    @Published var course: Course?
+@Observable class GolfGameViewModel: Identifiable {
+    var golfers = [Golfer]()
+    var currentGolfer = 0
+    var courseInfoAdded = false
+    var playerInfoAdded = false
+    var course: Course?
     
     /// Adds golfers to the golfers array
     /// - Parameters:
     ///   - name: Player name
     ///   - handicap: Handicap of player
     /// - Returns: Void
-    private func addGolfer(name:String, handicap: Int, score: [Hole]) -> Void {
-        let newGolfer = Golfer(name:name, handicap: handicap, score: score)
+    private func addGolfer(name:String, handicap: Int) -> Void {
+        let newGolfer = Golfer(name:name, handicap: handicap)
         self.golfers.append(newGolfer)
     }
 
@@ -33,8 +32,8 @@ class GolfGameViewModel: ObservableObject {
     ///   - handicap: Handicap of player
     func validateGolfer(name: String, handicap: String) {
         let handicapValue = Int(handicap) ?? 0
-        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
-        self.addGolfer(name: name, handicap: handicapValue, score: score)
+//        let score = Array(repeating: Hole(par: 4, score: 4, TeeShot: .center), count: self.course?.holeCount ?? 18) // check this line
+        self.addGolfer(name: name, handicap: handicapValue)
     }
     
     /// Validates course by ensuring proper values were inputted by the user
@@ -53,9 +52,12 @@ class GolfGameViewModel: ObservableObject {
     ///   - score: Score of the indexed golfer on a particular hole
     ///   - holePar: Par of a particular hole provided by the user
     ///   - holeTeeShot: Teeshot direction of the user (left, center, right)
-    func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation, modified: Bool) {
-        golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
-        print("Debug: \(ObjectIdentifier(golfers[currentGolfer])) hole 1 score is: \(golfers[currentGolfer].score[0].holeStrokes)")
+    func addGolferScore(score: Int, holePar: Int, holeTeeShot: Hole.TeeShotLocation) {
+        self.golfers[currentGolfer].setScore(holeScore: score, holePar: holePar, holeTeeshot: holeTeeShot)
+        for hole in golfers[currentGolfer].score {
+            print("Debug: \(ObjectIdentifier(golfers[currentGolfer])) scores are: \(ObjectIdentifier(hole))")
+        }
+        
     }
 
     /// Gets golfers score of for a particular index

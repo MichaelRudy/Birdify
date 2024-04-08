@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct AddPlayerInfo: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     @State private var name: String = ""
     @State private var handicap: Double = 0
     var body: some View {
@@ -55,7 +55,7 @@ struct AddPlayerInfo: View {
             Spacer()
             List {
                 Section(header: header) {
-                    ForEach(golfModel.golfers) { golfer in
+                    ForEach(gm.golfers) { golfer in
                         HStack {
                             Text(golfer.name)
                             Spacer()
@@ -68,7 +68,7 @@ struct AddPlayerInfo: View {
             HStack {
                 Button(action: {
                     let str_handicap = String(Int(handicap))
-                    golfModel.validateGolfer(name: name, handicap: str_handicap)
+                    gm.validateGolfer(name: name, handicap: str_handicap)
                     name = ""
                     handicap = 0
                 }) {
@@ -82,7 +82,7 @@ struct AddPlayerInfo: View {
                 }
                 .padding()
                 Button(action: {
-                    golfModel.playerInfoAdded.toggle()
+                    gm.playerInfoAdded.toggle()
                 }) {
                     Text("Play ⛳️")
                         .font(.title2)
@@ -108,7 +108,7 @@ var header: some View {
 
 @available(iOS 17.0, *)
 #Preview {
-    NavigationStack {
-        AddPlayerInfo().environmentObject(GolfGameViewModel())
-    }
+    let gm = GolfGameViewModel()
+    return AddPlayerInfo().environment(gm)
 }
+

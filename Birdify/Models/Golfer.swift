@@ -11,22 +11,25 @@ import Foundation
 @Observable class Golfer: Identifiable {
     var name: String
     let handicap: Int
-    var score: [Hole]
     
     // Default Properties
     var holeNumber: Int = 1
+    var score: [Hole]
     
     var id: UUID = UUID()
     
-    init(name: String, handicap: Int, score: [Hole]) {
+    init(name: String, handicap: Int) {
         self.name = name
         self.handicap = handicap
-        self.score = score
+        // Initialize the score array with unique Hole instances
+        self.score = (1...18).map { _ in Hole(par: 4, score: 4, TeeShot: .center) }
+        
     }
     
     func setScore(holeScore: Int, holePar: Int, holeTeeshot: Hole.TeeShotLocation) {
-        self.score[self.holeNumber - 1].setPar(holePar)
-        self.score[self.holeNumber - 1].setScore(holeScore)
+        let index = self.holeNumber - 1
+        self.score[index].setPar(holePar)
+        self.score[index].setScore(holeScore)
         self.holeNumber += 1
     }
     
@@ -44,6 +47,10 @@ import Foundation
         print("Hole tee shot on \(holeIndex) is \(self.score[holeIndex].holeTeeShot)")
         return self.score[holeIndex].holeTeeShot
     
+    }
+    
+    var scores: [Hole] {
+        self.score
     }
 }
 

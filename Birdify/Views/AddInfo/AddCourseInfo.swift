@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct AddCourseInfo: View {
-    @EnvironmentObject var golfModel: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     @State private var courseName: String = ""
     @State private var holeCount: Int = 9
     @State private var coursePar: Double = 72
@@ -74,8 +74,10 @@ struct AddCourseInfo: View {
             Button(action: {
                 // Handle "Next" button action
                 // Add your logic here
-                golfModel.validateCourse(name: self.courseName, par: String(self.coursePar), holeCount: String(self.holeCount))
-                golfModel.courseInfoAdded.toggle()
+                gm.validateCourse(name: self.courseName, par: String(self.coursePar), holeCount: String(self.holeCount))
+                gm.courseInfoAdded.toggle()
+//                gm.validateGolfer(name: "Michael", handicap: "10")
+//                gm.playerInfoAdded.toggle()
             }) {
                 Text("Add")
                     .font(.title2)
@@ -93,7 +95,6 @@ struct AddCourseInfo: View {
 
 @available(iOS 17.0, *)
 #Preview {
-    NavigationStack {
-        AddCourseInfo().environmentObject(GolfGameViewModel())
-    }
+    let gm = GolfGameViewModel()
+    return AddCourseInfo().environment(gm)
 }

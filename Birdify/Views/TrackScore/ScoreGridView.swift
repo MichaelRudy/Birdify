@@ -11,12 +11,12 @@ import SwiftUI
 struct ScoreGridView: View {
     // Assuming a standard 18-hole course; modify this as needed.
     let holes: [Int] = Array(1...18)
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) { // Adjust spacing as needed
-                ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].score)), id: \.0) { hole, score in
+                ForEach(Array(zip(holes, gm.golfers[gm.currentGolfer].scores)), id: \.0) { hole, score in
                     HStack {
                         VStack {
                             Text("\(hole)")
@@ -57,11 +57,11 @@ struct ScoreGridView: View {
     gm.validateGolfer(name: "Michael", handicap: "10")
     //        gm.validateGolfer(name: "Tyler", handicap: "10")
     gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
-    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 5, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center, modified: true)
+    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center)
+    gm.addGolferScore(score: 10, holePar: 5, holeTeeShot: .center)
+    gm.addGolferScore(score: 5, holePar: 5, holeTeeShot: .center)
+//    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center)
     return NavigationStack {
-        ScoreGridView().environmentObject(gm)
+        ScoreGridView().environment(gm)
     }
 }

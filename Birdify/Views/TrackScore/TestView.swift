@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct TestView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     var body: some View {
         Button(action: {
             print(gm.golfers[0].name)
@@ -21,13 +21,13 @@ struct TestView: View {
 }
 @available(iOS 17.0, *)
 #Preview {
-    let gm = GolfGameViewModel()
+    @Environment(GolfGameViewModel.self) var gm
     gm.validateGolfer(name: "Michael", handicap: "10")
     gm.validateGolfer(name: "Jack", handicap: "10")
     //        gm.validateGolfer(name: "Tyler", handicap: "10")
     gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
     
     return NavigationStack {
-        TestView().environmentObject(gm)
+        TestView().environment(gm)
     }
 }

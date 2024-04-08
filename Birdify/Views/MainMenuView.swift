@@ -9,26 +9,22 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct MainMenuView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
+    
     var body: some View {
         VStack{
-//            if (gm.courseInfoAdded && gm.playerInfoAdded) {
-//                ScoreView()
-//                    .environmentObject(gm)
-//                    .tabItem {
-//                        Label("Track Round", systemImage: "menucard")
-//                    }
-//            }
-//            else {
-//                if !gm.courseInfoAdded {
-//                    AddCourseInfo()
-//                        .environmentObject(gm)
-//                }
-//                else {
-//                    AddPlayerInfo().environmentObject(gm)
-//                }
-//            }
-            TestView().environmentObject(gm)
+            if (gm.courseInfoAdded && gm.playerInfoAdded) {
+                ScoreGridView().environment(gm)
+            }
+            else {
+                if !gm.courseInfoAdded {
+                    AddCourseInfo()
+                        .environment(gm)
+                }
+                else {
+                    AddPlayerInfo().environment(gm)
+                }
+            }
         }
     }
 }
@@ -48,14 +44,7 @@ var title: some View {
 @available(iOS 17.0, *)
 #Preview {
     let gm = GolfGameViewModel()
-    gm.validateGolfer(name: "Michael", handicap: "10")
-    //        gm.validateGolfer(name: "Tyler", handicap: "10")
-    gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
-    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 5, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 4, holePar: 5, holeTeeShot: .center, modified: true)
-    gm.addGolferScore(score: 3, holePar: 5, holeTeeShot: .center, modified: true)
     return NavigationStack {
-        MainMenuView().environmentObject(gm)
+        MainMenuView().environment(gm)
     }
 }

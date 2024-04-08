@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct ScoreView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) private var gm
     @State var score = 4
     @State var par = 4
     @State var teeShotLocation: Hole.TeeShotLocation = .center // assume people will hit the fairway :)
@@ -25,20 +25,14 @@ struct ScoreView: View {
             HStack {
                 let golfer = gm.golfers[gm.currentGolfer]
                 Button(action: {
-                    golfer.holeNumber += 1
+                    gm.changeGolfer()
                 }) {
-                    Text(String(golfer.holeNumber))
+                    Text(golfer.name).padding()
                 }
-//                Button(action: {
-//                    gm.changeGolfer()
-//                }) {
-//                    Text(golfer.name).padding()
-//                }
-                Text(golfer.name).padding()
                 Spacer()
-                Text("Hole \(String(golfer.holeNumber))").padding()
+                Text("Hole \(String(golfer.holeNumber))")
             }
-            Spacer(minLength: 70)
+            Spacer(minLength: 100)
             HStack {
                 Button(action: {
                     isTeeShotSheetPresented.toggle()
@@ -87,10 +81,10 @@ struct ScoreView: View {
             Spacer(minLength: 100)
         }
         .frame(width: 350, height: 250)
-        
+        .padding()
         // scoregrid goes here and replace the above stuff
-        ScoreGridView().environmentObject(gm)
-        Spacer(minLength: 70)
+        ScoreGridView().environment(gm)
+        Spacer(minLength: 50)
         ZStack {
             let score = gm.getGolferScore()
             if score.contains("-") {
@@ -119,7 +113,7 @@ struct ScoreView: View {
         Spacer(minLength: 10)
         
         Button(action: {
-            gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation, modified: true)
+            gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
             self.score = 4
             self.par = 4
             self.teeShotLocation = .center
@@ -140,7 +134,7 @@ struct ScoreView: View {
 
 @available(iOS 17.0, *)
 private struct StrokeSheetView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     @Binding var score: Int
     @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
@@ -173,9 +167,10 @@ private struct StrokeSheetView: View {
         .padding()
     }
 }
+
 @available(iOS 17.0, *)
 private struct ParSheetView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     @Binding var score: Int
     @Binding var par: Int
     @Binding var teeShotLocation: Hole.TeeShotLocation
@@ -208,9 +203,10 @@ private struct ParSheetView: View {
         .padding()
     }
 }
+
 @available(iOS 17.0, *)
 private struct TeeshotSheetView: View {
-    @EnvironmentObject var gm: GolfGameViewModel
+    @Environment(GolfGameViewModel.self) var gm
     @Binding var teeShotLocation: Hole.TeeShotLocation
     @Binding var isTeeShotSheetPresented: Bool
     
@@ -255,14 +251,14 @@ private struct TeeshotSheetView: View {
         }
     }
 }
+
 @available(iOS 17.0, *)
 #Preview {
     let gm = GolfGameViewModel()
     gm.validateGolfer(name: "Michael", handicap: "10")
     //        gm.validateGolfer(name: "Tyler", handicap: "10")
     gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
-    
     return NavigationStack {
-        ScoreView().environmentObject(gm)
+        ScoreView().environment(gm)
     }
 }

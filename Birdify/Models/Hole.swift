@@ -52,7 +52,7 @@ import Foundation
     }
     
     var overPar: Bool {
-        if self.holeStrokes - self.par >= 0 {
+        if self.holeStrokes - self.par > 0 {
             return true
         }
         else {

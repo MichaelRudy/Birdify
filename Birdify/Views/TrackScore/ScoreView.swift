@@ -10,6 +10,8 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct ScoreView: View {
     @Environment(GolfGameViewModel.self) private var gm
+    //    var gm: GolfGameViewModel
+    
     @State var score = 4
     @State var par = 4
     @State var teeShotLocation: Hole.TeeShotLocation = .center // assume people will hit the fairway :)
@@ -33,58 +35,9 @@ struct ScoreView: View {
                 Text("Hole \(String(golfer.holeNumber))")
             }
             Spacer(minLength: 100)
-            HStack {
-                Button(action: {
-                    isTeeShotSheetPresented.toggle()
-                }){
-                    Image(systemName: "location.circle")
-                        .resizable()
-                        .frame(width: 32.0, height: 32.0)
-                }
-                .popover(isPresented: $isTeeShotSheetPresented) {
-                    TeeshotSheetView(
-                        teeShotLocation: $teeShotLocation,
-                        isTeeShotSheetPresented: $isTeeShotSheetPresented
-                    )
-                }
-                Spacer()
-                Button(action: {
-                    isParSheetPresented.toggle()
-                }){
-                    Image(systemName: "parkingsign.circle")
-                        .resizable()
-                        .frame(width: 32.0, height: 32.0)
-                }
-                .popover(isPresented: $isParSheetPresented, content: {
-                    ParSheetView(
-                        score: $score,
-                        par: $par,
-                        teeShotLocation: $teeShotLocation
-                    )
-                })
-                Spacer()
-                Button(action: {
-                    isStrokeSheetPresented.toggle()
-                }){
-                    Image(systemName: "square.and.pencil")
-                        .resizable()
-                        .frame(width: 32.0, height: 32.0)
-                }
-                .popover(isPresented: $isStrokeSheetPresented, content: {
-                    StrokeSheetView(
-                        score: $score,
-                        par: $par,
-                        teeShotLocation: $teeShotLocation
-                    )
-                })
-            }
-            Spacer(minLength: 100)
         }
-        .frame(width: 350, height: 250)
+        .frame(width: 350, height:50)
         .padding()
-        // scoregrid goes here and replace the above stuff
-        ScoreGridView().environment(gm)
-        Spacer(minLength: 50)
         ZStack {
             let score = gm.getGolferScore()
             if score.contains("-") {
@@ -110,8 +63,55 @@ struct ScoreView: View {
                     )
             }
         }
-        Spacer(minLength: 10)
-        
+        .frame(width: 350, height:150)
+        HStack {
+            Button(action: {
+                isTeeShotSheetPresented.toggle()
+            }){
+                Image(systemName: "location.circle")
+                    .resizable()
+                    .frame(width: 32.0, height: 32.0)
+            }
+            .popover(isPresented: $isTeeShotSheetPresented) {
+                TeeshotSheetView(
+                    teeShotLocation: $teeShotLocation,
+                    isTeeShotSheetPresented: $isTeeShotSheetPresented
+                )
+            }
+            Spacer()
+            Button(action: {
+                isParSheetPresented.toggle()
+            }){
+                Image(systemName: "parkingsign.circle")
+                    .resizable()
+                    .frame(width: 32.0, height: 32.0)
+            }
+            .popover(isPresented: $isParSheetPresented, content: {
+                ParSheetView(
+                    score: $score,
+                    par: $par,
+                    teeShotLocation: $teeShotLocation
+                )
+            })
+            Spacer()
+            Button(action: {
+                isStrokeSheetPresented.toggle()
+            }){
+                Image(systemName: "square.and.pencil")
+                    .resizable()
+                    .frame(width: 32.0, height: 32.0)
+            }
+            .popover(isPresented: $isStrokeSheetPresented, content: {
+                StrokeSheetView(
+                    score: $score,
+                    par: $par,
+                    teeShotLocation: $teeShotLocation
+                )
+            })
+        }
+        .frame(width: 350, height:200)
+        // scoregrid goes here and replace the above stuff
+        ScoreGridView().environment(gm)
         Button(action: {
             gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
             self.score = 4

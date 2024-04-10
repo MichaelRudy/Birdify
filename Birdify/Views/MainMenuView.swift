@@ -9,12 +9,12 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct MainMenuView: View {
-    @Environment(GolfGameViewModel.self) var gm
+    @Environment(GolfGameViewModel.self) var gm 
     
     var body: some View {
         VStack{
             if (gm.courseInfoAdded && gm.playerInfoAdded) {
-                ScoreGridView().environment(gm)
+                ScoreView().environment(gm)
             }
             else {
                 if !gm.courseInfoAdded {

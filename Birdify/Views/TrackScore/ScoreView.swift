@@ -9,109 +9,131 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct ScoreView: View {
-    @Environment(GolfGameViewModel.self) private var gm
-    //    var gm: GolfGameViewModel
-    
+    @Environment(GolfGameViewModel.self) var gm
+
     @State var score = 4
     @State var par = 4
-    @State var teeShotLocation: Hole.TeeShotLocation = .center // assume people will hit the fairway :)
+    @State var teeShotLocation: Hole.TeeShotLocation = .center // Default fairway hit
     @State private var isStrokeSheetPresented = false
     @State private var isTeeShotSheetPresented = false
     @State private var isParSheetPresented = false
-    @State private var isEditTeeShot = false
-    @State private var isEditStrokes = false
-    @State private var isEditPar = false
-    
+
     var body: some View {
-        VStack {
-            HStack {
-                let golfer = gm.golfers[gm.currentGolfer]
-                Button(action: {
-                    gm.changeGolfer()
-                }) {
-                    Text(golfer.name).padding()
-                }
-                Spacer()
-                Text("Hole \(String(golfer.holeNumber))")
+        ZStack { // Outer ZStack for background
+            Color.black.edgesIgnoringSafeArea(.all) // Ensures background color extends to all edges
+
+            VStack {
+                // Header view with golfer name and hole number
+                headerView
+
+                // Main content area with score representation and modification options
+                mainContentView
+
+                // Score grid and submit button at the bottom
+                ScoreGridView()
+                    .environment(gm)
+
+                submitButton
             }
-            Spacer(minLength: 100)
+            .padding() // General padding around the VStack content
         }
-        .frame(width: 350, height:50)
-        .padding()
-        ZStack {
+    }
+
+    private var headerView: some View {
+        HStack {
+            Button(action: {
+                gm.changeGolfer()
+            }) {
+                Text(gm.golfers[gm.currentGolfer].name)
+                    .foregroundColor(.white)
+                    .padding()
+            }
+            Spacer()
+            Text("Hole \(String(gm.golfers[gm.currentGolfer].holeNumber))")
+                .foregroundColor(.white)
+        }
+        .padding(.horizontal)
+    }
+
+    private var mainContentView: some View {
+        VStack {
             let score = gm.getGolferScore()
+            scoreCircleOrRectangle(score: score)
+                .frame(width: 250, height: 300)
+            controlButtons
+            Spacer()
+        }
+    }
+
+    private func scoreCircleOrRectangle(score: String) -> some View {
+        Group {
             if score.contains("-") {
                 Circle()
-                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
-                    .frame(width: 250, height: 250)
+                    .stroke(Color.blue, lineWidth: 2)
                     .overlay(
                         Text(score)
                             .font(.system(size: 200))
                             .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity)
                     )
-            }
-            else {
+            } else {
                 Rectangle()
-                    .stroke(Color.blue, lineWidth: 2) // Customize the color and line width as needed
-                    .frame(width: 250, height: 250)
+                    .stroke(Color.blue, lineWidth: 2)
                     .overlay(
-                        Text(gm.getGolferScore())
+                        Text(score)
                             .font(.system(size: 200))
                             .foregroundColor(.blue)
-                            .frame(maxWidth: .infinity)
                     )
             }
         }
-        .frame(width: 350, height:150)
+    }
+
+    private var controlButtons: some View {
         HStack {
             Button(action: {
                 isTeeShotSheetPresented.toggle()
-            }){
+            }) {
                 Image(systemName: "location.circle")
                     .resizable()
                     .frame(width: 32.0, height: 32.0)
             }
             .popover(isPresented: $isTeeShotSheetPresented) {
-                TeeshotSheetView(
-                    teeShotLocation: $teeShotLocation,
-                    isTeeShotSheetPresented: $isTeeShotSheetPresented
-                )
+                TeeshotSheetView(teeShotLocation: $teeShotLocation, isTeeShotSheetPresented: $isTeeShotSheetPresented)
             }
+            // Additional buttons here
             Spacer()
-            Button(action: {
-                isParSheetPresented.toggle()
-            }){
-                Image(systemName: "parkingsign.circle")
-                    .resizable()
-                    .frame(width: 32.0, height: 32.0)
-            }
-            .popover(isPresented: $isParSheetPresented, content: {
-                ParSheetView(
-                    score: $score,
-                    par: $par,
-                    teeShotLocation: $teeShotLocation
-                )
-            })
-            Spacer()
-            Button(action: {
-                isStrokeSheetPresented.toggle()
-            }){
-                Image(systemName: "square.and.pencil")
-                    .resizable()
-                    .frame(width: 32.0, height: 32.0)
-            }
-            .popover(isPresented: $isStrokeSheetPresented, content: {
-                StrokeSheetView(
-                    score: $score,
-                    par: $par,
-                    teeShotLocation: $teeShotLocation
-                )
-            })
+                Button(action: {
+                    isParSheetPresented.toggle()
+                }){
+                    Image(systemName: "parkingsign.circle")
+                        .resizable()
+                        .frame(width: 32.0, height: 32.0)
+                }
+                .popover(isPresented: $isParSheetPresented, content: {
+                    ParSheetView(
+                        score: $score,
+                        par: $par,
+                        teeShotLocation: $teeShotLocation
+                    )
+                })
+                Spacer()
+                Button(action: {
+                    isStrokeSheetPresented.toggle()
+                }){
+                    Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .frame(width: 32.0, height: 32.0)
+                }
+                .popover(isPresented: $isStrokeSheetPresented, content: {
+                    StrokeSheetView(
+                        score: $score,
+                        par: $par,
+                        teeShotLocation: $teeShotLocation
+                    )
+                })
         }
-        .frame(width: 350, height:200)
-        // scoregrid goes here and replace the above stuff
-        ScoreGridView().environment(gm)
+    }
+
+    private var submitButton: some View {
         Button(action: {
             gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
             self.score = 4
@@ -126,11 +148,10 @@ struct ScoreView: View {
                 .background(Color.green)
                 .cornerRadius(10)
         }
-        .frame(maxWidth: .infinity)
         .padding()
-        Spacer(minLength: 10)
     }
 }
+
 
 @available(iOS 17.0, *)
 private struct StrokeSheetView: View {

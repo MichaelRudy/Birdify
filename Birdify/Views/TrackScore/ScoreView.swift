@@ -17,6 +17,7 @@ struct ScoreView: View {
     @State private var isStrokeSheetPresented = false
     @State private var isTeeShotSheetPresented = false
     @State private var isParSheetPresented = false
+    @State private var isEditScorePresented = false
 
     var body: some View {
         ZStack { // Outer ZStack for background
@@ -28,11 +29,11 @@ struct ScoreView: View {
 
                 // Main content area with score representation and modification options
                 mainContentView
-
+                
                 // Score grid and submit button at the bottom
                 ScoreGridView()
                     .environment(gm)
-
+                
                 submitButton
             }
             .padding() // General padding around the VStack content
@@ -110,9 +111,7 @@ struct ScoreView: View {
                 }
                 .popover(isPresented: $isParSheetPresented, content: {
                     ParSheetView(
-                        score: $score,
-                        par: $par,
-                        teeShotLocation: $teeShotLocation
+                        par: $par
                     )
                 })
                 Spacer()
@@ -125,9 +124,7 @@ struct ScoreView: View {
                 }
                 .popover(isPresented: $isStrokeSheetPresented, content: {
                     StrokeSheetView(
-                        score: $score,
-                        par: $par,
-                        teeShotLocation: $teeShotLocation
+                        score: $score
                     )
                 })
         }
@@ -153,12 +150,11 @@ struct ScoreView: View {
 }
 
 
+
 @available(iOS 17.0, *)
 private struct StrokeSheetView: View {
     @Environment(GolfGameViewModel.self) var gm
     @Binding var score: Int
-    @Binding var par: Int
-    @Binding var teeShotLocation: Hole.TeeShotLocation
     
     var body: some View {
         VStack(alignment: .center) {
@@ -192,9 +188,7 @@ private struct StrokeSheetView: View {
 @available(iOS 17.0, *)
 private struct ParSheetView: View {
     @Environment(GolfGameViewModel.self) var gm
-    @Binding var score: Int
     @Binding var par: Int
-    @Binding var teeShotLocation: Hole.TeeShotLocation
     
     var body: some View {
         VStack(alignment: .center) {
@@ -277,6 +271,7 @@ private struct TeeshotSheetView: View {
 #Preview {
     let gm = GolfGameViewModel()
     gm.validateGolfer(name: "Michael", handicap: "10")
+    gm.validateGolfer(name: "Dad", handicap: "10")
     //        gm.validateGolfer(name: "Tyler", handicap: "10")
     gm.validateCourse(name: "Twin Lakes", par: "72", holeCount: "9")
     return NavigationStack {

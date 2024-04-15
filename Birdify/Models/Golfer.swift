@@ -33,6 +33,12 @@ import Foundation
         self.holeNumber += 1
     }
     
+    func editScore(holeNumber: Int, holeScore: Int, holePar: Int, teeShot: Hole.TeeShotLocation) {
+        let index = holeNumber - 1
+        self.score[index].setPar(holePar)
+        self.score[index].setScore(holeScore)
+    }
+    
     func getScore() -> Int {
         var plus_minus = 0
         for h in score {

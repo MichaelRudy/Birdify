@@ -28,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D013340B2BD0C126000BA23A /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D01D81942BC31EA300002749 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		D048464F2AAFF679006370A4 /* WeatherKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeatherKit.framework; path = System/Library/Frameworks/WeatherKit.framework; sourceTree = SDKROOT; };
 		D07F2F3C2B98159600F5213E /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
@@ -62,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D013340A2BD0C101000BA23A /* playground */ = {
+			isa = PBXGroup;
+			children = (
+				D013340B2BD0C126000BA23A /* MyPlayground.playground */,
+			);
+			path = playground;
+			sourceTree = "<group>";
+		};
 		D048464E2AAFF679006370A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +100,7 @@
 		D0BE3B80295CD7F9006DEBE0 /* Birdify */ = {
 			isa = PBXGroup;
 			children = (
+				D013340A2BD0C101000BA23A /* playground */,
 				D0D7D8282ACA5E62006E04CC /* Managers */,
 				D0C7EDED29AD9F80005B99A1 /* ViewModels */,
 				D0C7EDE029A857CE005B99A1 /* Models */,

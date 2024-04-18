@@ -59,5 +59,3 @@ import Foundation
         self.score
     }
 }
-
-

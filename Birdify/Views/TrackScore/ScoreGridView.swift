@@ -11,6 +11,7 @@ import SwiftUI
 struct ScoreGridView: View {
     // Assuming a standard 18-hole course; modify this as needed.
     let holes: [Int] = Array(1...18)
+    
     @Environment(GolfGameViewModel.self) var gm
     @State private var selectedHole: Int?
     @State private var isEditScorePresented = false

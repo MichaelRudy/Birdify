@@ -120,7 +120,7 @@ import SwiftUI
 //    func getGolferStrokes(holeN: Int) -> Int {
 //        golfers[currentGolfer].getStrokes(holeIndex: holeN-1)
 //    }
-//    
+//
 //    /// Gets hole par
 //    /// - Parameters:
 //    ///   - holeN: Hole Number
@@ -136,7 +136,7 @@ import SwiftUI
 //        }
 //        print("Debug: \(ObjectIdentifier(golfers[currentGolfer])) set hole number to \(golfers[currentGolfer].holeNumber)")
 //    }
-//    
+//
     func changeGolfer() {
         let maxIndex = (self.golfers.count - 1)
         if self.currentGolfer < maxIndex {
@@ -236,7 +236,7 @@ import SwiftUI
 //    func editPar(holeN: Int, newPar: Int) {
 //        golfers[currentGolfer].editPar(holeIndex: holeN-1, newPar: newPar)
 //    }
-//    
+//
 //    /// Gets golf hole data in the gofer's score array
 //    /// - Parameters:
 //    ///   - holeN: Hole Number
@@ -244,7 +244,7 @@ import SwiftUI
 //    func golfHoleData(golferIndex: Int, holeN: Int) -> Hole {
 //        golfers[golferIndex].getHoleData(holeIndex: holeN-1)
 //    }
-//    
+//
 //    func golferShotDirection(golferIndex: Int, holeN: Int) -> Hole.TeeShotLocation {
 //        golfers[golferIndex].getTeeShot(holeIndex: holeN)
 //    }

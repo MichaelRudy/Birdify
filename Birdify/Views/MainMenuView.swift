@@ -14,15 +14,17 @@ struct MainMenuView: View {
     var body: some View {
         VStack{
             if (gm.courseInfoAdded && gm.playerInfoAdded) {
-                ScoreView().environment(gm)
-            }
+//                ScoreView().environment(gm)
+                ScoreView()            }
             else {
                 if !gm.courseInfoAdded {
+//                    AddCourseInfo()
+//                        .environment(gm)
                     AddCourseInfo()
-                        .environment(gm)
                 }
                 else {
-                    AddPlayerInfo().environment(gm)
+//                    AddPlayerInfo().environment(gm)
+                    AddPlayerInfo()
                 }
             }
         }

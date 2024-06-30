@@ -31,9 +31,10 @@ struct ScoreView: View {
                 mainContentView
                 
                 // Score grid and submit button at the bottom
+//                ScoreGridView()
+//                    .environment(gm)
                 ScoreGridView()
-                    .environment(gm)
-                
+
                 submitButton
             }
             .padding() // General padding around the VStack content
@@ -61,7 +62,8 @@ struct ScoreView: View {
             let score = gm.getGolferScore()
             scoreCircleOrRectangle(score: score)
                 .frame(width: 250, height: 300)
-            controlButtons
+            Spacer()
+            controlButtons2
             Spacer()
         }
     }
@@ -87,7 +89,38 @@ struct ScoreView: View {
             }
         }
     }
+    
+    private var controlButtons2: some View {
+        VStack {
+            SegmentedPickerView(selection: $teeShotLocation, options: ["center", "left", "right"], title: "Tee Shot")
+            HStack {
+                ValuePicker(title: "Strokes", value: $score, range: 1...10)
+                ValuePicker(title: "Par", value: $par, range: 3...5)
+            }
+        }
+        
+    }
+    
+    struct SegmentedPickerView: View {
+        @Binding var selection: Hole.TeeShotLocation
+        let options: [String]
+        let title: String
 
+        var body: some View {
+            VStack {
+                Text(title)
+                    .font(.headline)
+                Picker(title, selection: $selection) {
+                    ForEach(options, id: \.self) { option in
+                        Text(option).tag(option)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            .padding()
+        }
+    }
+    
     private var controlButtons: some View {
         HStack {
             Button(action: {
@@ -129,7 +162,31 @@ struct ScoreView: View {
                 })
         }
     }
-
+    
+    struct ValuePicker: View {
+        let title: String
+        @Binding var value: Int
+        let range: ClosedRange<Int>
+        
+        var body: some View {
+            VStack {
+                Text(title)
+                    .frame(minWidth: 50) // Adjust the width as needed
+                    .background(Color.gray.opacity(0.5))
+                    .foregroundColor(.white)
+                Picker(selection: $value, label: Text("")) {
+                    ForEach(range, id: \.self) { index in
+                        Text("\(index)")
+                            .font(.largeTitle)
+                            .tag(index)
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+                .frame(height: 150)
+            }
+        }
+    }
+    
     private var submitButton: some View {
         Button(action: {
             gm.addGolferScore(score: self.score, holePar: self.par, holeTeeShot: self.teeShotLocation)
